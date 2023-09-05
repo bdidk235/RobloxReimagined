@@ -1,0 +1,640 @@
+/* ==UserStyle==
+@name           Roblox Reimagined
+@version        0.1.5
+@namespace      roblox.com
+@description    Customize Roblox without it feeling like a whole new design.
+@author         bdidk235
+@license        MIT
+@preprocessor   stylus
+
+@var select theme "Theme" ["default:Darker", "amoled:AMOLED", "robloxDark:Roblox-Like Dark", "robloxLight:Roblox-Like Light", "off:Off"]
+
+@var checkbox moreAnimations "More Animations" 0
+@var checkbox navFloat "Floating Navigation" 0
+
+@var checkbox improvements "Various Improvements" 1
+@var checkbox footerLinks "Remove Footer Links" 1
+==/UserStyle== */
+
+@-moz-document domain("www.roblox.com"), domain("web.roblox.com") {
+	/* Variables */
+	$isLight = (theme == robloxLight)
+
+	/* Themes */
+	:root, .dark-theme, .light-theme {
+    	if theme == default {
+			--background-color: hsl(210, 3%, 10%);
+			--navigation-color: hsl(210, 3%, 6%);
+			--content-color: hsl(210, 3%, 20%);
+			--input-color: hsl(210, 3%, 4%);
+			--input-border-color: hsl(210, 3%, 18%);
+			--thumbnail-color: hsl(210, 3%, 17%);
+			--item-thumbnail-color: var(--thumbnail-color);
+			--highlight-color: hsl(210, 3%, 35%);
+			--highlighter-color: hsl(210, 3%, 45%);
+			--primary-text-color: hsl(0, 3%, 100%);
+			--secondary-text-color: hsl(210, 3%, 75%);
+		} else if theme == amoled {
+			--background-color: hsl(210, 3%, 0%);
+			--navigation-color: hsl(210, 3%, 2%);
+			--content-color: hsl(210, 3%, 8%);
+			--input-color: hsl(210, 3%, 2%);
+			--input-border-color: hsl(210, 3%, 12%);
+			--thumbnail-color: hsl(210, 3%, 12%);
+			--item-thumbnail-color: var(--thumbnail-color);
+			--highlight-color: hsl(210, 3%, 20%);
+			--highlighter-color: hsl(210, 3%, 28%);
+			--primary-text-color: hsl(0, 3%, 100%);
+			--secondary-text-color: hsl(210, 3%, 65%);
+		} else if theme == robloxDark {
+			--background-color: #232527;
+			--navigation-color: #191b1d;
+			--content-color: #393b3d;
+			--input-color: rgba(0,0,0,.7);
+			--input-border-color: hsla(0,0%,100%,.2);
+			--thumbnail-color: #d4d4d4;
+			--item-thumbnail-color: rgba(57,59,61,.5);
+			--highlight-color: #656668;
+			--highlighter-color: #b8b8b8;
+			--primary-text-color: #fff;
+			--secondary-text-color: #bdbebe;
+		} else if theme == robloxLight {
+			--background-color: #f2f4f5;
+			--navigation-color: #dee1e3;
+			--content-color: #fff;
+			--input-color: hsla(0,0%,100%,.9);
+			--input-border-color: rgba(57,59,61,.2);
+			--thumbnail-color: #d4d4d4;
+			--item-thumbnail-color: rgba(0,0,0,.1);
+			--highlight-color: #bdbebe;
+			--highlighter-color: #fdfdfd;
+			--primary-text-color: #393b3d;
+			--secondary-text-color: #606162;
+		}
+
+		--text-color: var(--primary-text-color);
+		--secondary-color: var(--secondary-text-color);
+	}
+
+	if theme != off {
+		.rbx-body,
+		.content,
+		.container-main,
+		.container-footer,
+		.horizontal-scroller .scroller .spacer,
+		.warp,
+		.table {
+			background-color: var(--background-color) !important;
+		}
+
+		.rbx-header,
+		.rbx-left-col,
+		.layer,
+		.slide-switcher .slide-item-container .slide-item-container-left {
+			background-color: var(--navigation-color) !important;
+			border-color: var(--navigation-color) !important;
+		}
+
+		.section-content,
+		.stack .card-list .card-item,
+		.rbx-tabs-horizontal .nav-tabs,
+		.request-error-page-content .default-error-page,
+		.dropdown-menu,
+		.popover,
+		.avatar-card-container,
+		.avatar-card-btns,
+		.friends-content .avatar-card-content,
+		.slide-switcher .slide-item-container .slide-item-container-right,
+		.profile-avatar-right .profile-avatar-mask {
+			background-color: var(--content-color) !important;
+		}
+
+		.content,
+		.section-content,
+		.text-link-secondary.active,
+		.text-link-secondary:hover
+		.text-name,
+		.text-name:hover,
+		.text-name:visited,
+		.refresh-link,
+		.refresh-link-icon,
+		.see-all-link,
+		.see-all-link-icon,
+		.touch .refresh-link,
+		.touch .refresh-link-icon,
+		.touch .see-all-link,
+		.touch .see-all-link-icon
+		.text-lead,
+		.text-title,
+		.text-link,
+		.rbx-header .text-header,
+		.input-group .input-field,
+		.menu-vertical .menu-option.active,
+		.people-list .friend .friend-link,
+		.people-info-card-container .place-container .place-info-container .place-info,
+		.request-error-page-content .default-error-page,
+		.item-details-info-header,
+		.text-robux,
+		.table,
+		.voting-panel .users-vote .vote-details .vote-numbers .count-left,
+		.voting-panel .users-vote .vote-details .vote-numbers .count-right,
+		.vlist .list-item .list-body .list-content a,
+		.rbx-header .navbar-search .navbar-search-option .new-navbar-search-anchor .navbar-list-option-text,
+		.rbx-header .navbar-search .navbar-search-option a,
+		.container-header > h2,
+		.select-group .select-option:hover,
+		.avatar-card-container,
+		.avatar-card-btns,
+		.slide-switcher .slide-item-container .slide-item-container-right,
+		.see-all-link,
+		.see-all-link-icon,
+		.rbx-left-col li .text-nav,
+		.rbx-left-col li .text-nav:hover .font-header-2,
+		#settings-popover-menu li a:hover,
+		#buy-robux-popover-menu li a:hover {
+			color: var(--primary-text-color) !important;
+		}
+
+		p,
+		.text,
+		.text-date-hint,
+		.text-default,
+		.text-description,
+		.text-footer,
+		.text-info,
+		.text-secondary,
+		.game-card-info .info-label,
+		.input-group .input-field::placeholder,
+		.menu-vertical .menu-option,
+		.footer .text-footer-nav,
+		.footer .text-footer-nav.privacy,
+		.text-label,
+		.container-empty,
+		.text-robux-tile,
+		.select-group .select-option,
+		.avatar-card-container .avatar-card-caption .avatar-card-label,
+		.rbx-header .navbar-search .navbar-search-option .new-navbar-search-anchor .navbar-list-option-suffix,
+		.input-group-btn .input-dropdown-btn,
+		.dropdown-menu li,
+		.content .friends-filter .dropdown button,
+		.rbx-left-col li .text-nav .font-header-2,
+		#settings-popover-menu li a,
+		#buy-robux-popover-menu li a {
+			color: var(--secondary-text-color) !important;
+		}
+
+		.profile-avatar-left,
+		.profile-avatar-left .thumbnail-span {
+			background-color: var(--navigation-color) !important;
+			border-color: var(--navigation-color) !important;
+		}
+
+		#profile-current-wearing-avatar .thumbnail-2d-container {
+			background-color: transparent !important;
+		}
+
+		.border {
+			border-color: var(--highlight-color) !important;
+			color: var(--secondary-text-color) !important;
+		}
+
+		.social-link .border:hover {
+			border-color: var(--secondary-text-color) !important;
+			color: var(--primary-text-color) !important;
+		}
+
+		.border-top {
+			border-color: var(--highlighter-color) !important;
+		}
+
+		.stack .server-player-count-gauge {
+			background-color: var(--background-color) !important;
+			border-color: var(--highlight-color) !important;
+		}
+
+		.stack .server-player-count-gauge .gauge-inner-bar {
+			border: 1px solid var(--secondary-text-color) !important;
+		}
+		
+		.rbx-select-group .rbx-select, .rbx-select-group .select-option, .select-group .rbx-select, .select-group .select-option {
+			background-color: transparent !important;
+			border-color: var(--highlight-color) !important;
+		}
+
+		.rbx-header .navbar-search,
+		.friends-filter .friends-filter-searchbar-container .friends-filter-searchbar-input,
+		.input-field:not(.rbx-select) {
+			background-color: var(--input-color) !important;
+			color: var(--secondary-text-color) !important;
+			border-color: var(--input-border-color) !important;
+		}
+
+		.rbx-header .navbar-search::placeholder,
+		.friends-filter .friends-filter-searchbar-container .friends-filter-searchbar-input::placeholder,
+		.input-field:not(.rbx-select)::placeholder {
+			color: var(--secondary-text-color) !important;
+		}
+
+		input, textarea {
+			background-color: var(--background-color) !important;
+			color: var(--secondary-text-color) !important;
+			border-color: var(--input-border-color) !important;
+		}
+
+		input::placeholder, textarea::placeholder {
+			color: var(--secondary-text-color) !important;
+		}
+
+		.content .friends-filter .dropdown button {
+			background-color: var(--background-color) !important;
+			color: var(--secondary-text-color) !important;
+			border-color: var(--input-border-color) !important;
+		}
+
+		.btn-control-sm,
+		.enable-three-dee,
+		.avatar-thumbnail .toggle-three-dee {
+			background-color: var(--background-color) !important;
+			color: var(--secondary-text-color) !important;
+			border-color: var(--highlight-color) !important;
+		}
+
+		.btn-control-sm:hover,
+		.enable-three-dee:hover,
+		.avatar-thumbnail .toggle-three-dee:hover {
+			color: var(--primary-text-color) !important;
+			border-color: var(--highlighter-color) !important;
+		}
+
+		.btn-control-sm:active,
+		.enable-three-dee:active,
+		.avatar-thumbnail .toggle-three-dee:active {
+			color: var(--primary-text-color) !important;
+			border-color: var(--highlighter-color) !important;
+		}
+
+		.checkbox input[type="checkbox"] {
+			color: var(--secondary-text-color) !important;
+		}
+
+		.avatar .avatar-card-image,
+		.avatar-container .avatar-card-image,
+		.avatar-container img,
+		.modal-thumb {
+			background-color: var(--thumbnail-color) !important;
+			border-color: var(--thumbnail-color) !important;
+		}
+
+		.thumbnail-2d-container,
+		.asset-thumb-container,
+		.item-card-container .item-card-thumb-container {
+			background-color: var(--item-thumbnail-color) !important;
+			border-color: var(--item-thumbnail-color) !important;
+		}
+
+		.modal-dialog .modal-content,
+		.section-content-off,
+		.alert-info,
+		.menu-vertical {
+			background-color: var(--content-color) !important;
+			color: var(--primary-text-color) !important;
+		}
+
+		.avatar-card-btns .accept-friend,
+		.btr-profile .btr-games-list .btr-game-playbutton {
+			background-color: var(--primary-text-color) !important;
+			border-color: var(--primary-text-color) !important;
+			color: var(--background-color) !important;
+		}
+
+		.btn-secondary-md,
+		.btn-control-xs:not(.see-all-link, .rbx-refresh) {
+			border-color: var(--secondary-text-color) !important;
+			color: var(--secondary-text-color) !important;
+		}
+
+		.btn-secondary-md:hover,
+		.btn-control-xs:hover {
+			border-color: var(--primary-text-color) !important;
+			color: var(--primary-text-color) !important;
+		}
+
+		.dropdown-menu li:focus,
+		.dropdown-menu li:hover,
+		.rbx-divider,
+		.rbx-header .navbar-search .navbar-search-option.new-selected {
+			background-color: var(--highlight-color) !important;
+		}
+
+		.player-thumbnails-container .player-avatar.hidden-players-placeholder,
+		.rbx-header .navbar-search .navbar-search-option.new-selected:hover {
+			background-color: var(--highlighter-color) !important;
+		}
+
+		.table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
+			background-color: var(--content-color) !important;
+		}
+
+		.rbx-tabs-horizontal .rbx-tab:hover .rbx-tab-heading,
+		.rbx-tabs-horizontal .rbx-tab .rbx-tab-heading:hover {
+			box-shadow: inset 0 -4px 0 0 var(--highlight-color) !important;
+		}
+
+		.rbx-tabs-horizontal .rbx-tab.active .rbx-tab-heading,
+		.rbx-tabs-horizontal .rbx-tab .rbx-tab-heading.active {
+			box-shadow: inset 0 -4px 0 0 var(--primary-text-color) !important;
+		}
+
+		.age-rating-details {
+			background-color: ($isLight ? rgba(0, 0, 0, 0.15) : rgba(0, 0, 0, 0.75)) !important;
+		}
+
+		.avatar-back .thumbnail-2d-container,
+		.item-details-thumbnail-container .thumbnail-2d-container,
+		.groups-list .group-cards .list-item .group-card .group-card-thumbnail .thumbnail-2d-container,
+		.section-content.remove-panel,
+		.rbx-tab .rbx-tab-heading {
+			background-color: transparent !important;
+		}
+
+		.badge-list .thumbnail-2d-container,
+		.badge-list span.asset-thumb-container,
+		.badge-list img.asset-thumb-container,
+		.game-card-container .game-card-thumb-container,
+		.badge-link > .asset-thumb-container {
+			background-color: transparent !important;
+			border-color: transparent !important;
+		}
+	}
+
+	/* Customization */
+	if moreAnimations {
+		$navbar-offset = (navFloat ? 4px : 0px)
+
+		@keyframes navbarSlideIn {
+			from {
+				transform: translateX(-100% + $navbar-offset) translateY($navbar-offset);
+			}
+
+			to {
+				transform: translateX($navbar-offset) translateY($navbar-offset);
+			}
+		}
+
+		@keyframes slideInDown {
+			from {
+				transform: translateY(-20px);
+				opacity: 0;
+			}
+
+			to {
+				transform: translateY(0px);
+				opacity: 1;
+			}
+		}
+
+		@keyframes slideInUp {
+			from {
+				transform: translateY(20px);
+				opacity: 0;
+			}
+
+			to {
+				transform: translateY(0px);
+				opacity: 1;
+			}
+		}
+
+		@keyframes slideInLeft {
+			from {
+				transform: translateX(20px);
+				opacity: 0;
+			}
+
+			to {
+				transform: translateX(0px);
+				opacity: 1;
+			}
+		}
+
+		@keyframes slideInRight {
+			from {
+				transform: translateX(-20px);
+				opacity: 0;
+			}
+
+			to {
+				transform: translateX(0px);
+				opacity: 1;
+			}
+		}
+
+		.alert-container, .system-feedback {
+			display: none;
+		}
+
+		.content,
+		.group-details,
+		.games-list, .game-carousel,
+		.tab-pane, .tab-content {
+			animation: slideInDown .5s;
+		}
+
+		.people-list,
+		.game-card-container:not(.group-card-name-container),
+		.list-item.item-card,
+		.list-item.member,
+		.list-item:has(div[avatar-item-card],.friend) {
+			animation: slideInUp .5s;
+		}
+
+		#navigation {
+			animation: navbarSlideIn .5s;
+		}
+
+		.rbx-left-col li .text-nav .font-header-2,
+		.border,
+		.btn-secondary-md,
+		.btn-control-xs,
+		.rbx-tab-heading, .rbx-tabs-horizontal .rbx-tab .rbx-tab-heading,
+		.btr-game-button {
+			transition: .4s;
+		}
+	}
+
+	if navFloat {
+		#navigation {
+			height: fit-content;
+			transform: translateX(4px) translateY(4px);
+		}
+
+		.rbx-scrollbar > .simplebar-track {
+			visibility: hidden !important;
+		}
+	}
+
+	/* General Improvements */
+	if improvements {
+		/* Experience */
+		.game-about-container,
+		.btr-game-main-container {
+			margin-top: 12px;
+			padding-bottom: 0px !important;
+		}
+
+		.game-description {
+			padding-bottom: 6px;
+			margin-bottom: 0px;
+		}
+
+		.game-stats-container {
+			margin-bottom: -10px;
+			border-bottom: none;
+		}
+
+		.game-stat-footer {
+			padding: 0;
+			padding-bottom: 8px;
+		}
+
+		.pin-button {
+			margin-left: 4px;
+		}
+
+		/* Profile */
+		.btr-profile .profile-stats-container {
+			border-bottom: none;
+			padding-top: 6px;
+			margin-top: 6px;
+		}
+
+		/* Navigation Bar */
+		.rbx-left-col ul {
+			padding: 5px 10px 0 10px;
+		}
+		
+		.simplebar-mask {
+			margin: -6px 0px 0px -2px !important;
+		}
+
+		/* Misc */
+		.remove-panel:not(.section-content) {
+			margin-bottom: 4px;
+		}
+	}
+
+	if footerLinks {
+		#rbx-body {
+			margin-bottom: 40px;
+		}
+
+		.footer .footer-links {
+			display: none;
+		}
+	}
+
+	/* Extension Support */
+
+	/* BTR */
+	if improvements {
+		.btr-profile .btr-games-list .btr-game-playbutton {
+			font-weight: 450;
+		}
+	}
+
+	/* BTR Recolor */
+	if theme != off {
+		/* Experience */
+		.btr-toggle-description {
+			background-color: transparent !important;
+		}
+		
+		.btr-universe-box {
+			background-color: var(--highlight-color) !important;
+			color: var(--secondary-text-color) !important;
+		}
+
+		/* Profile */
+		.btr-profile .btr-games-list .btr-game-desc .btr-toggle-description {
+			background-color: var(--content-color) !important;
+		}
+
+		.btr-profile .profile-stats-container {
+			border-top: 1px solid var(--highlighter-color);
+		}
+
+		.container-buttons .profile-view-selector {
+			background-color: var(--highlight-color) !important;
+			border-color: var(--secondary-text-color) !important;
+		}
+
+		.btr-profile .btr-games-list .btr-game-button {
+			if $isLight {
+				background-color: var(--highlighter-color) !important;
+				border-color: var(--highlight-color) !important;
+			} else {
+				background-color: var(--highlight-color) !important;
+				border-color: var(--highlight-color) !important;
+			}
+		}
+
+		.btr-profile .btr-games-list .btr-game-button:hover {
+			box-shadow: 0 1px 4px var(--highlighter-color) !important;
+		}
+
+		/* Catalog */
+		.btr-catalog .btr-item-card-more, .btr-catalog.light-theme .btr-item-card-more {
+			background-color: transparent !important;
+			box-shadow: 0 1px 1px 0 var(--highlighter-color) !important;
+		}
+
+		.btr-switch input[type="checkbox"] {
+			background: none !important;
+			border: none !important;
+		}
+
+		/* BTR Explorer */
+		.btr-explorer-item-name, .btr-property-name, .btr-property-value {
+			color: #000 !important;
+		}
+
+		.btr-property-value > input {
+			color: #000 !important;
+			padding-left: 4px !important;
+		}
+	}
+
+	/* RoSeal */
+	if improvements {
+		/* Badges List */
+		.users-compare > .user2 {
+			margin-top: 4px;
+		}
+
+		.new-badges-list .new-badges-list-container .badge-container.unobtained .badge-image-container {
+			filter: grayscale(0.75);
+			opacity: .25;
+		}
+	}
+
+	/* RoSeal Recolor */
+	if theme != off {
+		/* Group */
+		.menu-vertical .menu-option:hover {
+			box-shadow: inset 4px 0 0 0 var(--highlight-color) !important;
+		}
+
+		.menu-vertical .menu-option.active {
+			box-shadow: inset 4px 0 0 0 var(--primary-text-color) !important;
+		}
+
+		/* Badges List */
+		.new-badges-list .new-badges-list-container .badge-background {
+			background-color: var(--highlight-color) !important;
+		}
+
+		.badge-image-container > .thumbnail-2d-container {
+			background-color: transparent !important;
+		}
+	}
+}
