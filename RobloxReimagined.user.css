@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Roblox Reimagined
-@version        0.2.0
+@version        0.2.1
 @namespace      roblox.com
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
@@ -458,11 +458,13 @@
 		.flatpickr-current-month .numInputWrapper span.arrowUp::after,
 		.flatpickr-current-month .numInputWrapper span.arrowDown::after {
 			border-top-color: var(--secondary-text-color) !important;
+			border-bottom-color: var(--secondary-text-color) !important;
 		}
 
 		.flatpickr-current-month .numInputWrapper span.arrowUp:hover::after,
 		.flatpickr-current-month .numInputWrapper span.arrowDown:hover::after {
 			border-top-color: var(--primary-text-color) !important;
+			border-bottom-color: var(--primary-text-color) !important;
 		}
 
 		div.flatpickr-calendar .flatpickr-monthSelect-month:focus,
