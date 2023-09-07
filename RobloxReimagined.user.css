@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Roblox Reimagined
-@version        0.1.5
+@version        0.2.0
 @namespace      roblox.com
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
@@ -8,6 +8,8 @@
 @preprocessor   stylus
 
 @var select theme "Theme" ["default:Darker", "amoled:AMOLED", "robloxDark:Roblox-Like Dark", "robloxLight:Roblox-Like Light", "off:Off"]
+@var number hue "Theme Hue (1-360)" [210, 0, 360, 1]
+@var number saturation "Theme Saturation (0-100%)" [3, 0, 100, 1]
 
 @var checkbox moreAnimations "More Animations" 0
 @var checkbox navFloat "Floating Navigation" 0
@@ -18,34 +20,34 @@
 
 @-moz-document domain("www.roblox.com"), domain("web.roblox.com") {
 	/* Variables */
-	$isLight = (theme == robloxLight)
+	isLight = (theme == robloxLight)
 
 	/* Themes */
 	:root, .dark-theme, .light-theme {
-    	if theme == default {
-			--background-color: hsl(210, 3%, 10%);
-			--navigation-color: hsl(210, 3%, 6%);
-			--content-color: hsl(210, 3%, 20%);
-			--input-color: hsl(210, 3%, 4%);
-			--input-border-color: hsl(210, 3%, 18%);
-			--thumbnail-color: hsl(210, 3%, 17%);
+		if theme == default {
+			--background-color: hsl(hue, saturation, 10%);
+			--navigation-color: hsl(hue, saturation, 6%);
+			--content-color: hsl(hue, saturation, 20%);
+			--input-color: hsl(hue, saturation, 4%);
+			--input-border-color: hsl(hue, saturation, 18%);
+			--thumbnail-color: hsl(hue, saturation, 17%);
 			--item-thumbnail-color: var(--thumbnail-color);
-			--highlight-color: hsl(210, 3%, 35%);
-			--highlighter-color: hsl(210, 3%, 45%);
-			--primary-text-color: hsl(0, 3%, 100%);
-			--secondary-text-color: hsl(210, 3%, 75%);
+			--highlight-color: hsl(hue, saturation, 35%);
+			--highlighter-color: hsl(hue, saturation, 45%);
+			--primary-text-color: hsl(0, saturation, 100%);
+			--secondary-text-color: hsl(hue, saturation, 75%);
 		} else if theme == amoled {
-			--background-color: hsl(210, 3%, 0%);
-			--navigation-color: hsl(210, 3%, 2%);
-			--content-color: hsl(210, 3%, 8%);
-			--input-color: hsl(210, 3%, 2%);
-			--input-border-color: hsl(210, 3%, 12%);
-			--thumbnail-color: hsl(210, 3%, 12%);
+			--background-color: hsl(hue, saturation, 0%);
+			--navigation-color: hsl(hue, saturation, 2%);
+			--content-color: hsl(hue, saturation, 8%);
+			--input-color: hsl(hue, saturation, 2%);
+			--input-border-color: hsl(hue, saturation, 12%);
+			--thumbnail-color: hsl(hue, saturation, 12%);
 			--item-thumbnail-color: var(--thumbnail-color);
-			--highlight-color: hsl(210, 3%, 20%);
-			--highlighter-color: hsl(210, 3%, 28%);
-			--primary-text-color: hsl(0, 3%, 100%);
-			--secondary-text-color: hsl(210, 3%, 65%);
+			--highlight-color: hsl(hue, saturation, 20%);
+			--highlighter-color: hsl(hue, saturation, 28%);
+			--primary-text-color: hsl(0, saturation, 100%);
+			--secondary-text-color: hsl(hue, saturation, 65%);
 		} else if theme == robloxDark {
 			--background-color: #232527;
 			--navigation-color: #191b1d;
@@ -77,20 +79,31 @@
 	}
 
 	if theme != off {
-		.rbx-body,
+		body,
+		.scroller,
+		.horizontal-scroller .scroller .spacer {
+			background-color: var(--background-color) !important;
+		}
+
 		.content,
 		.container-main,
 		.container-footer,
-		.horizontal-scroller .scroller .spacer,
 		.warp,
-		.table {
-			background-color: var(--background-color) !important;
+		.table,
+		.avatar-back .thumbnail-2d-container,
+		.item-details-thumbnail-container .thumbnail-2d-container,
+		.groups-list .group-cards .list-item .group-card .group-card-thumbnail .thumbnail-2d-container,
+		.section-content.remove-panel,
+		.rbx-tab .rbx-tab-heading,
+		#profile-current-wearing-avatar .thumbnail-2d-container {
+			background-color: transparent !important;
 		}
 
 		.rbx-header,
 		.rbx-left-col,
 		.layer,
-		.slide-switcher .slide-item-container .slide-item-container-left {
+		.slide-switcher .slide-item-container .slide-item-container-left,
+		.profile-avatar-left, .profile-avatar-left .thumbnail-span {
 			background-color: var(--navigation-color) !important;
 			border-color: var(--navigation-color) !important;
 		}
@@ -98,11 +111,9 @@
 		.section-content,
 		.stack .card-list .card-item,
 		.rbx-tabs-horizontal .nav-tabs,
-		.request-error-page-content .default-error-page,
 		.dropdown-menu,
 		.popover,
-		.avatar-card-container,
-		.avatar-card-btns,
+		.table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th,
 		.friends-content .avatar-card-content,
 		.slide-switcher .slide-item-container .slide-item-container-right,
 		.profile-avatar-right .profile-avatar-mask {
@@ -140,7 +151,6 @@
 		.voting-panel .users-vote .vote-details .vote-numbers .count-right,
 		.vlist .list-item .list-body .list-content a,
 		.rbx-header .navbar-search .navbar-search-option .new-navbar-search-anchor .navbar-list-option-text,
-		.rbx-header .navbar-search .navbar-search-option a,
 		.container-header > h2,
 		.select-group .select-option:hover,
 		.avatar-card-container,
@@ -163,6 +173,7 @@
 		.text-footer,
 		.text-info,
 		.text-secondary,
+		.breadcrumb-container,
 		.game-card-info .info-label,
 		.input-group .input-field::placeholder,
 		.menu-vertical .menu-option,
@@ -173,6 +184,7 @@
 		.text-robux-tile,
 		.select-group .select-option,
 		.avatar-card-container .avatar-card-caption .avatar-card-label,
+		.dark-theme .rbx-header .navbar-search .navbar-search-option a,
 		.rbx-header .navbar-search .navbar-search-option .new-navbar-search-anchor .navbar-list-option-suffix,
 		.input-group-btn .input-dropdown-btn,
 		.dropdown-menu li,
@@ -181,16 +193,6 @@
 		#settings-popover-menu li a,
 		#buy-robux-popover-menu li a {
 			color: var(--secondary-text-color) !important;
-		}
-
-		.profile-avatar-left,
-		.profile-avatar-left .thumbnail-span {
-			background-color: var(--navigation-color) !important;
-			border-color: var(--navigation-color) !important;
-		}
-
-		#profile-current-wearing-avatar .thumbnail-2d-container {
-			background-color: transparent !important;
 		}
 
 		.border {
@@ -203,8 +205,9 @@
 			color: var(--primary-text-color) !important;
 		}
 
-		.border-top {
-			border-color: var(--highlighter-color) !important;
+		.border-bottom, .border-left, .border-right, .border-top,
+		.modal-dialog .modal-content .modal-header {
+			border-color: var(--highlight-color) !important;
 		}
 
 		.stack .server-player-count-gauge {
@@ -251,28 +254,70 @@
 			border-color: var(--input-border-color) !important;
 		}
 
+		.btn-control-lg,
+		.btn-control-md,
 		.btn-control-sm,
-		.enable-three-dee,
-		.avatar-thumbnail .toggle-three-dee {
-			background-color: var(--background-color) !important;
+		.btn-control-xs {
 			color: var(--secondary-text-color) !important;
 			border-color: var(--highlight-color) !important;
 		}
 
+		.enable-three-dee,
+		.avatar-thumbnail .toggle-three-dee,
+		.btr-toggle-items {
+			background-color: var(--background-color) !important;
+		}
+
+		.btn-control-lg:hover,
+		.btn-control-md:hover,
 		.btn-control-sm:hover,
+		.btn-control-xs:hover,
 		.enable-three-dee:hover,
 		.avatar-thumbnail .toggle-three-dee:hover {
 			color: var(--primary-text-color) !important;
 			border-color: var(--highlighter-color) !important;
 		}
 
+		.btn-control-lg:active,
+		.btn-control-md:active,
 		.btn-control-sm:active,
+		.btn-control-xs:active,
 		.enable-three-dee:active,
 		.avatar-thumbnail .toggle-three-dee:active {
+			color: var(--primary-text-color) !important;
+			border-color: var(--primary-text-color) !important;
+		}
+
+		.btn-secondary-lg,
+		.btn-secondary-md,
+		.btn-secondary-sm,
+		.btn-secondary-xs {
+			color: var(--secondary-text-color) !important;
+			border-color: var(--highlighter-color) !important;
+		}
+
+		.btn-secondary-lg:hover,
+		.btn-secondary-md:hover,
+		.btn-secondary-sm:hover,
+		.btn-secondary-xs:hover {
 			color: var(--primary-text-color) !important;
 			border-color: var(--highlighter-color) !important;
 		}
 
+		.btn-secondary-lg:active,
+		.btn-secondary-md:active,
+		.btn-secondary-sm:active,
+		.btn-secondary-xs:active {
+			color: var(--primary-text-color) !important;
+			border-color: var(--primary-text-color) !important;
+		}
+
+		.see-all-link, .see-all-link-icon, .rbx-refresh {
+			background-color: transparent !important;
+			border-color: var(--primary-text-color) !important;
+			color: var(--primary-text-color) !important;
+		}
+		
 		.checkbox input[type="checkbox"] {
 			color: var(--secondary-text-color) !important;
 		}
@@ -292,6 +337,9 @@
 			border-color: var(--item-thumbnail-color) !important;
 		}
 
+		.request-error-page-content .default-error-page,
+		.avatar-card-container,
+		.avatar-card-btns,
 		.modal-dialog .modal-content,
 		.section-content-off,
 		.alert-info,
@@ -300,23 +348,12 @@
 			color: var(--primary-text-color) !important;
 		}
 
+		.btn-primary-md:not(button.game-server-join-btn, .btn-common-play-game-lg, .carousel-controls-left, .carousel-controls-right),
 		.avatar-card-btns .accept-friend,
 		.btr-profile .btr-games-list .btr-game-playbutton {
 			background-color: var(--primary-text-color) !important;
 			border-color: var(--primary-text-color) !important;
 			color: var(--background-color) !important;
-		}
-
-		.btn-secondary-md,
-		.btn-control-xs:not(.see-all-link, .rbx-refresh) {
-			border-color: var(--secondary-text-color) !important;
-			color: var(--secondary-text-color) !important;
-		}
-
-		.btn-secondary-md:hover,
-		.btn-control-xs:hover {
-			border-color: var(--primary-text-color) !important;
-			color: var(--primary-text-color) !important;
 		}
 
 		.dropdown-menu li:focus,
@@ -331,10 +368,6 @@
 			background-color: var(--highlighter-color) !important;
 		}
 
-		.table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
-			background-color: var(--content-color) !important;
-		}
-
 		.rbx-tabs-horizontal .rbx-tab:hover .rbx-tab-heading,
 		.rbx-tabs-horizontal .rbx-tab .rbx-tab-heading:hover {
 			box-shadow: inset 0 -4px 0 0 var(--highlight-color) !important;
@@ -345,25 +378,115 @@
 			box-shadow: inset 0 -4px 0 0 var(--primary-text-color) !important;
 		}
 
-		.age-rating-details {
-			background-color: ($isLight ? rgba(0, 0, 0, 0.15) : rgba(0, 0, 0, 0.75)) !important;
+		.rbx-header .rbx-navbar li {
+			padding-bottom: 1.25px;
+			border-bottom: none !important;
 		}
 
-		.avatar-back .thumbnail-2d-container,
-		.item-details-thumbnail-container .thumbnail-2d-container,
-		.groups-list .group-cards .list-item .group-card .group-card-thumbnail .thumbnail-2d-container,
-		.section-content.remove-panel,
-		.rbx-tab .rbx-tab-heading {
-			background-color: transparent !important;
+		.rbx-header .rbx-navbar li:hover {
+			box-shadow: inset 0 -2px 0 0 var(--primary-text-color) !important;
+		}
+
+		.tab-horizontal-submenu {
+			border-top: none !important;
+		}
+
+		.btn-navigation-nav-menu-md:focus,
+		.btn-navigation-nav-menu-md:hover,
+		.btn-navigation-nav-robux-md:focus,
+		.btn-navigation-nav-robux-md:hover,
+		.btn-navigation-nav-settings-md:focus,
+		.btn-navigation-nav-settings-md:hover,
+		.btn-uiblox-common-common-notification-bell-md:focus,
+		.btn-uiblox-common-common-notification-bell-md:hover,
+		#btr-navbar-messages > a:focus, #btr-navbar-friends > a:focus,
+		#btr-navbar-messages > a:hover, #btr-navbar-friends > a:hover {
+			background-color: var(--content-color) !important;
+		}
+
+		.tab-horizontal-submenu li.active, .tab-horizontal-submenu li:hover,
+		.scroller:not(.disabled):hover,
+		.age-rating-details,
+		.carousel-controls-left, .carousel-controls-right {
+			background-color: (isLight ? rgba(0, 0, 0, 0.15) : rgba(0, 0, 0, 0.75)) !important;
+		}
+
+		.carousel-controls-left, .carousel-controls-right {
+			background-color: (isLight ? rgba(0, 0, 0, 0.15) : rgba(0, 0, 0, 0.65)) !important;
+		}
+
+		.carousel-controls-left:hover, .carousel-controls-right:hover {
+			background-color: (isLight ? rgba(0, 0, 0, 0.25) : rgba(0, 0, 0, 0.85)) !important;
+		}
+
+		.items-list .item-card .item-card-menu button:not(:hover) {
+			border-color: transparent !important;
 		}
 
 		.badge-list .thumbnail-2d-container,
 		.badge-list span.asset-thumb-container,
 		.badge-list img.asset-thumb-container,
-		.game-card-container .game-card-thumb-container,
-		.badge-link > .asset-thumb-container {
+		.badge-link > .asset-thumb-container,
+		.game-card-container .game-card-thumb-container {
 			background-color: transparent !important;
 			border-color: transparent !important;
+		}
+
+		/* Flatpickr */
+		.flatpickr-calendar {
+			background-color: var(--background-color) !important;
+			box-shadow: none !important;
+		}
+
+		.flatpickr-current-month input.cur-year {
+			background-color: var(--input-color) !important;
+			border: 1px solid var(--input-border-color) !important;
+		}
+
+		.numInputWrapper span {
+			border: 1px solid var(--input-border-color) !important;
+		}
+
+		div.flatpickr-calendar .flatpickr-months .flatpickr-next-month svg, div.flatpickr-calendar .flatpickr-months .flatpickr-prev-month svg {
+			fill: var(--highlight-color) !important;
+		}
+
+		div.flatpickr-calendar .flatpickr-months .flatpickr-next-month:hover svg, div.flatpickr-calendar .flatpickr-months .flatpickr-prev-month:hover svg {
+			fill: var(--primary-text-color) !important;
+		}
+
+		.flatpickr-current-month .numInputWrapper span.arrowUp::after,
+		.flatpickr-current-month .numInputWrapper span.arrowDown::after {
+			border-top-color: var(--secondary-text-color) !important;
+		}
+
+		.flatpickr-current-month .numInputWrapper span.arrowUp:hover::after,
+		.flatpickr-current-month .numInputWrapper span.arrowDown:hover::after {
+			border-top-color: var(--primary-text-color) !important;
+		}
+
+		div.flatpickr-calendar .flatpickr-monthSelect-month:focus,
+		div.flatpickr-calendar .flatpickr-monthSelect-month:hover {
+			background-color: var(--highlight-color) !important;
+		}
+
+		div.flatpickr-calendar .flatpickr-monthSelect-month.selected {
+			background-color: var(--highlight-color) !important;
+		}
+
+		div.flatpickr-calendar .flatpickr-monthSelect-month.selected:focus,
+		div.flatpickr-calendar .flatpickr-monthSelect-month.selected:hover {
+			background-color: var(--highlighter-color) !important;
+		}
+
+		div.flatpickr-calendar .flatpickr-monthSelect-month {
+			color: var(--primary-text-color) !important;
+		}
+
+		div.flatpickr-calendar .flatpickr-monthSelect-month.flatpickr-disabled, div.flatpickr-calendar .flatpickr-monthSelect-month.flatpickr-disabled:hover {
+			background-color: transparent !important;
+			color: var(--secondary-text-color) !important;
+			cursor: default;
 		}
 	}
 
@@ -429,7 +552,7 @@
 			}
 		}
 
-		.alert-container, .system-feedback {
+		.system-feedback {
 			display: none;
 		}
 
@@ -453,12 +576,24 @@
 		}
 
 		.rbx-left-col li .text-nav .font-header-2,
+		.scroller,
 		.border,
+		.btn-control-sm,
+		.enable-three-dee,
 		.btn-secondary-md,
+		.btn-secondary-xs,
 		.btn-control-xs,
+		.btn-generic-left-sm,
+		.btn-generic-right-sm,
 		.rbx-tab-heading, .rbx-tabs-horizontal .rbx-tab .rbx-tab-heading,
-		.btr-game-button {
-			transition: .4s;
+		.rbx-header .rbx-navbar li,
+		.btr-game-button,
+		.btn-navigation-nav-menu-md,
+		.btn-navigation-nav-robux-md,
+		.btn-navigation-nav-settings-md,
+		.btn-uiblox-common-common-notification-bell-md,
+		#btr-navbar-messages > a, #btr-navbar-friends > a {
+			transition: all .2s ease;
 		}
 	}
 
@@ -569,7 +704,7 @@
 		}
 
 		.btr-profile .btr-games-list .btr-game-button {
-			if $isLight {
+			if isLight {
 				background-color: var(--highlighter-color) !important;
 				border-color: var(--highlight-color) !important;
 			} else {
@@ -591,6 +726,10 @@
 		.btr-switch input[type="checkbox"] {
 			background: none !important;
 			border: none !important;
+		}
+
+		.btr-owner-item::before, .btr-owner-item::after {
+			border-color: var(--highlight-color) !important;
 		}
 
 		/* BTR Explorer */
