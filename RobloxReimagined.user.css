@@ -1,9 +1,11 @@
 /* ==UserStyle==
 @name           Roblox Reimagined
-@version        0.2.1
-@namespace      roblox.com
+@version        0.2.2
+@namespace      https://userstyles.world/user/bdidk235
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
+@homepageURL    https://github.com/bdidk235/RobloxReimagined
+@supportURL     https://github.com/bdidk235/RobloxReimagined/issues
 @license        MIT
 @preprocessor   stylus
 
@@ -57,7 +59,7 @@
 			--thumbnail-color: #d4d4d4;
 			--item-thumbnail-color: rgba(57,59,61,.5);
 			--highlight-color: #656668;
-			--highlighter-color: #b8b8b8;
+			--highlighter-color: #989898;
 			--primary-text-color: #fff;
 			--secondary-text-color: #bdbebe;
 		} else if theme == robloxLight {
@@ -69,7 +71,7 @@
 			--thumbnail-color: #d4d4d4;
 			--item-thumbnail-color: rgba(0,0,0,.1);
 			--highlight-color: #bdbebe;
-			--highlighter-color: #fdfdfd;
+			--highlighter-color: #b8b8b8;
 			--primary-text-color: #393b3d;
 			--secondary-text-color: #606162;
 		}
@@ -80,8 +82,7 @@
 
 	if theme != off {
 		body,
-		.scroller,
-		.horizontal-scroller .scroller .spacer {
+		.scroller {
 			background-color: var(--background-color) !important;
 		}
 
@@ -90,6 +91,7 @@
 		.container-footer,
 		.warp,
 		.table,
+		.horizontal-scroller .scroller .spacer,
 		.avatar-back .thumbnail-2d-container,
 		.item-details-thumbnail-container .thumbnail-2d-container,
 		.groups-list .group-cards .list-item .group-card .group-card-thumbnail .thumbnail-2d-container,
@@ -150,6 +152,8 @@
 		.voting-panel .users-vote .vote-details .vote-numbers .count-left,
 		.voting-panel .users-vote .vote-details .vote-numbers .count-right,
 		.vlist .list-item .list-body .list-content a,
+		.rbx-header .navbar-search .navbar-search-option:focus a,
+		.rbx-header .navbar-search .navbar-search-option:hover a,
 		.rbx-header .navbar-search .navbar-search-option .new-navbar-search-anchor .navbar-list-option-text,
 		.container-header > h2,
 		.select-group .select-option:hover,
@@ -158,10 +162,12 @@
 		.slide-switcher .slide-item-container .slide-item-container-right,
 		.see-all-link,
 		.see-all-link-icon,
+		.dropdown-menu li:focus,
+		.dropdown-menu li:hover,
 		.rbx-left-col li .text-nav,
 		.rbx-left-col li .text-nav:hover .font-header-2,
-		#settings-popover-menu li a:hover,
-		#buy-robux-popover-menu li a:hover {
+		#settings-popover-menu li:hover a,
+		#buy-robux-popover-menu li:hover a {
 			color: var(--primary-text-color) !important;
 		}
 
@@ -184,9 +190,8 @@
 		.text-robux-tile,
 		.select-group .select-option,
 		.avatar-card-container .avatar-card-caption .avatar-card-label,
-		.dark-theme .rbx-header .navbar-search .navbar-search-option a,
+		.rbx-header .navbar-search .navbar-search-option a,
 		.rbx-header .navbar-search .navbar-search-option .new-navbar-search-anchor .navbar-list-option-suffix,
-		.input-group-btn .input-dropdown-btn,
 		.dropdown-menu li,
 		.content .friends-filter .dropdown button,
 		.rbx-left-col li .text-nav .font-header-2,
@@ -238,6 +243,20 @@
 			color: var(--secondary-text-color) !important;
 		}
 
+		.dropdown-menu li:focus,
+		.dropdown-menu li:hover,
+		.rbx-divider,
+		.dropdown-menu li.active, .dropdown-menu li:active
+		.rbx-header .navbar-search .navbar-search-option.new-selected {
+			background-color: var(--highlight-color) !important;
+		}
+
+		.player-thumbnails-container .player-avatar.hidden-players-placeholder,
+		.dropdown-menu li.active:hover,
+		.rbx-header .navbar-search .navbar-search-option.new-selected:hover {
+			background-color: var(--highlighter-color) !important;
+		}
+
 		input, textarea {
 			background-color: var(--background-color) !important;
 			color: var(--secondary-text-color) !important;
@@ -248,16 +267,38 @@
 			color: var(--secondary-text-color) !important;
 		}
 
+		.input-group-btn .input-dropdown-btn,
 		.content .friends-filter .dropdown button {
-			background-color: var(--background-color) !important;
+			background-color: transparent !important;
 			color: var(--secondary-text-color) !important;
-			border-color: var(--input-border-color) !important;
+			border-color: var(--secondary-text-color) !important;
+		}
+
+		.input-group-btn .input-dropdown-btn:hover,
+		.input-group-btn.open .input-dropdown-btn,
+		.content .friends-filter .dropdown:hover .input-dropdown-btn,
+		.content .friends-filter .dropdown.open .input-dropdown-btn {
+			background-color: transparent !important;
+			color: var(--primary-text-color) !important;
+			border-color: var(--primary-text-color) !important;
+		}
+
+		.btn-toggle:not(.on) {
+			background-color: var(--highlight-color) !important;
+			color: var(--primary-text-color) !important;
+		}
+
+		.toggle-flip {
+			background-color: (isLight ? var(--content-color) : var(--primary-text-color)) !important;
 		}
 
 		.btn-control-lg,
 		.btn-control-md,
 		.btn-control-sm,
-		.btn-control-xs {
+		.btn-control-xs,
+		.enable-three-dee,
+		.avatar-thumbnail .toggle-three-dee,
+		.btr-toggle-items {
 			color: var(--secondary-text-color) !important;
 			border-color: var(--highlight-color) !important;
 		}
@@ -322,6 +363,8 @@
 			color: var(--secondary-text-color) !important;
 		}
 
+		.game-card-container .game-card-thumb-container,
+		.item-card-container .item-card-thumb-container,
 		.avatar .avatar-card-image,
 		.avatar-container .avatar-card-image,
 		.avatar-container img,
@@ -331,8 +374,7 @@
 		}
 
 		.thumbnail-2d-container,
-		.asset-thumb-container,
-		.item-card-container .item-card-thumb-container {
+		.asset-thumb-container {
 			background-color: var(--item-thumbnail-color) !important;
 			border-color: var(--item-thumbnail-color) !important;
 		}
@@ -354,18 +396,6 @@
 			background-color: var(--primary-text-color) !important;
 			border-color: var(--primary-text-color) !important;
 			color: var(--background-color) !important;
-		}
-
-		.dropdown-menu li:focus,
-		.dropdown-menu li:hover,
-		.rbx-divider,
-		.rbx-header .navbar-search .navbar-search-option.new-selected {
-			background-color: var(--highlight-color) !important;
-		}
-
-		.player-thumbnails-container .player-avatar.hidden-players-placeholder,
-		.rbx-header .navbar-search .navbar-search-option.new-selected:hover {
-			background-color: var(--highlighter-color) !important;
 		}
 
 		.rbx-tabs-horizontal .rbx-tab:hover .rbx-tab-heading,
@@ -401,7 +431,7 @@
 		.btn-uiblox-common-common-notification-bell-md:hover,
 		#btr-navbar-messages > a:focus, #btr-navbar-friends > a:focus,
 		#btr-navbar-messages > a:hover, #btr-navbar-friends > a:hover {
-			background-color: var(--content-color) !important;
+			background-color: (isLight ? rgba(0, 0, 0, 0.1) : var(--content-color)) !important;
 		}
 
 		.tab-horizontal-submenu li.active, .tab-horizontal-submenu li:hover,
@@ -427,9 +457,16 @@
 		.badge-list span.asset-thumb-container,
 		.badge-list img.asset-thumb-container,
 		.badge-link > .asset-thumb-container,
-		.game-card-container .game-card-thumb-container {
+		.game-card-thumb-container .thumbnail-2d-container {
 			background-color: transparent !important;
 			border-color: transparent !important;
+		}
+
+		.clearfix.horizontal-scroll-window {
+			margin-right: -30px;
+			margin-left: -30px;
+			padding-left: 30px;
+			overflow: hidden;
 		}
 
 		/* Flatpickr */
@@ -506,6 +543,18 @@
 			}
 		}
 
+		@keyframes alertSlide {
+			from {
+				transform: translateY(-100px);
+				opacity: 0;
+			}
+
+			to {
+				transform: translateY(-100px);
+				opacity: 0;
+			}
+		}
+
 		@keyframes slideInDown {
 			from {
 				transform: translateY(-20px);
@@ -554,8 +603,8 @@
 			}
 		}
 
-		.system-feedback {
-			display: none;
+		.system-feedback, .alert-system-feedback {
+			animation: alertSlide 1s !important;
 		}
 
 		.content,
@@ -655,6 +704,10 @@
 		}
 
 		/* Misc */
+		.game-card-thumb-container::before {
+			z-index: 1;
+		}
+
 		.remove-panel:not(.section-content) {
 			margin-bottom: 4px;
 		}
@@ -697,7 +750,7 @@
 		}
 
 		.btr-profile .profile-stats-container {
-			border-top: 1px solid var(--highlighter-color);
+			border-top: 1px solid var(--highlight-color);
 		}
 
 		.container-buttons .profile-view-selector {
@@ -720,7 +773,7 @@
 		}
 
 		/* Catalog */
-		.btr-catalog .btr-item-card-more, .btr-catalog.light-theme .btr-item-card-more {
+		.btr-catalog .btr-item-card-more {
 			background-color: transparent !important;
 			box-shadow: 0 1px 1px 0 var(--highlighter-color) !important;
 		}
