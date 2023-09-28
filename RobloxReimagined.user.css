@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Roblox Reimagined
-@version        0.2.2
+@version        0.3.0
 @namespace      https://userstyles.world/user/bdidk235
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
@@ -9,7 +9,7 @@
 @license        MIT
 @preprocessor   stylus
 
-@var select theme "Theme" ["default:Darker", "amoled:AMOLED", "robloxDark:Roblox-Like Dark", "robloxLight:Roblox-Like Light", "off:Off"]
+@var select theme "Theme" ["defaultDark:Default Dark", "defaultLight:Default Light", "darker:Darker", "amoled:AMOLED", "robloxDark:Roblox Dark", "robloxLight:Roblox Light", "off:Off"]
 @var number hue "Theme Hue (1-360)" [210, 0, 360, 1]
 @var number saturation "Theme Saturation (0-100%)" [3, 0, 100, 1]
 
@@ -17,16 +17,41 @@
 @var checkbox navFloat "Floating Navigation" 0
 
 @var checkbox improvements "Various Improvements" 1
+@var checkbox twitterToX "Change Twitter to X" 0
 @var checkbox footerLinks "Remove Footer Links" 1
 ==/UserStyle== */
 
 @-moz-document domain("www.roblox.com"), domain("web.roblox.com") {
 	/* Variables */
-	isLight = (theme == robloxLight)
+	isLight = (theme == defaultLight || theme == robloxLight)
 
 	/* Themes */
 	:root, .dark-theme, .light-theme {
-		if theme == default {
+		if theme == defaultDark {
+			--background-color: hsl(hue, saturation, 15%);
+			--navigation-color: hsl(hue, saturation, 10%);
+			--content-color: hsl(hue, saturation, 23%);
+			--input-color: hsl(hue, saturation, 4%);
+			--input-border-color: hsl(hue, saturation, 18%);
+			--thumbnail-color: hsl(hue, saturation, 30%);
+			--item-thumbnail-color: var(--thumbnail-color);
+			--highlight-color: hsl(hue, saturation, 45%);
+			--highlighter-color: hsl(hue, saturation, 55%);
+			--primary-text-color: hsl(hue, saturation, 100%);
+			--secondary-text-color: hsl(hue, saturation, 75%);
+		} else if theme == defaultLight {
+			--background-color: hsl(hue, saturation, 95%);
+			--navigation-color: hsl(hue, saturation, 85%);
+			--content-color: hsl(hue, saturation, 100%);
+			--input-color: hsl(hue, saturation, 90%);
+			--input-border-color: hsl(hue, saturation, 65%);
+			--thumbnail-color: hsl(hue, saturation, 85%);
+			--item-thumbnail-color: var(--thumbnail-color);
+			--highlight-color: hsl(hue, saturation, 85%);
+			--highlighter-color: hsl(hue, saturation, 70%);
+			--primary-text-color: hsl(hue, saturation, 15%);
+			--secondary-text-color: hsl(hue, saturation, 38%);
+		} else if theme == darker {
 			--background-color: hsl(hue, saturation, 10%);
 			--navigation-color: hsl(hue, saturation, 6%);
 			--content-color: hsl(hue, saturation, 20%);
@@ -36,19 +61,19 @@
 			--item-thumbnail-color: var(--thumbnail-color);
 			--highlight-color: hsl(hue, saturation, 35%);
 			--highlighter-color: hsl(hue, saturation, 45%);
-			--primary-text-color: hsl(0, saturation, 100%);
+			--primary-text-color: hsl(hue, saturation, 100%);
 			--secondary-text-color: hsl(hue, saturation, 75%);
 		} else if theme == amoled {
 			--background-color: hsl(hue, saturation, 0%);
 			--navigation-color: hsl(hue, saturation, 2%);
-			--content-color: hsl(hue, saturation, 8%);
+			--content-color: hsl(hue, saturation, 14%);
 			--input-color: hsl(hue, saturation, 2%);
 			--input-border-color: hsl(hue, saturation, 12%);
 			--thumbnail-color: hsl(hue, saturation, 12%);
 			--item-thumbnail-color: var(--thumbnail-color);
 			--highlight-color: hsl(hue, saturation, 20%);
 			--highlighter-color: hsl(hue, saturation, 28%);
-			--primary-text-color: hsl(0, saturation, 100%);
+			--primary-text-color: hsl(hue, saturation, 100%);
 			--secondary-text-color: hsl(hue, saturation, 65%);
 		} else if theme == robloxDark {
 			--background-color: #232527;
@@ -97,7 +122,8 @@
 		.groups-list .group-cards .list-item .group-card .group-card-thumbnail .thumbnail-2d-container,
 		.section-content.remove-panel,
 		.rbx-tab .rbx-tab-heading,
-		#profile-current-wearing-avatar .thumbnail-2d-container {
+		#profile-current-wearing-avatar .thumbnail-2d-container,
+		#recommendations-container .current-items > .layer {
 			background-color: transparent !important;
 		}
 
@@ -105,7 +131,8 @@
 		.rbx-left-col,
 		.layer,
 		.slide-switcher .slide-item-container .slide-item-container-left,
-		.profile-avatar-left, .profile-avatar-left .thumbnail-span {
+		.profile-avatar-left, .profile-avatar-left .thumbnail-span,
+		.voting-panel .users-vote .vote-details .vote-container .vote-background, .voting-panel .users-vote .vote-details .vote-container .vote-background.has-votes {
 			background-color: var(--navigation-color) !important;
 			border-color: var(--navigation-color) !important;
 		}
@@ -118,7 +145,8 @@
 		.table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th,
 		.friends-content .avatar-card-content,
 		.slide-switcher .slide-item-container .slide-item-container-right,
-		.profile-avatar-right .profile-avatar-mask {
+		.profile-avatar-right .profile-avatar-mask,
+		.voting-panel .users-vote .vote-details .vote-container .vote-mask .segment {
 			background-color: var(--content-color) !important;
 		}
 
@@ -169,6 +197,10 @@
 		#settings-popover-menu li:hover a,
 		#buy-robux-popover-menu li:hover a {
 			color: var(--primary-text-color) !important;
+		}
+
+		.voting-panel .users-vote .vote-details .vote-container .vote-percentage {
+			background-color: var(--primary-text-color) !important;
 		}
 
 		p,
@@ -257,7 +289,7 @@
 			background-color: var(--highlighter-color) !important;
 		}
 
-		input, textarea {
+		input:not([type="range"]), textarea {
 			background-color: var(--background-color) !important;
 			color: var(--secondary-text-color) !important;
 			border-color: var(--input-border-color) !important;
@@ -275,8 +307,10 @@
 		}
 
 		.input-group-btn .input-dropdown-btn:hover,
+		.input-group-btn .input-dropdown-btn:focus,
 		.input-group-btn.open .input-dropdown-btn,
 		.content .friends-filter .dropdown:hover .input-dropdown-btn,
+		.content .friends-filter .dropdown:focus .input-dropdown-btn,
 		.content .friends-filter .dropdown.open .input-dropdown-btn {
 			background-color: transparent !important;
 			color: var(--primary-text-color) !important;
@@ -298,14 +332,16 @@
 		.btn-control-xs,
 		.enable-three-dee,
 		.avatar-thumbnail .toggle-three-dee,
-		.btr-toggle-items {
+		.btr-toggle-items,
+		html body .btr-thumb-btn-container .btr-thumb-btn {
 			color: var(--secondary-text-color) !important;
 			border-color: var(--highlight-color) !important;
 		}
 
 		.enable-three-dee,
 		.avatar-thumbnail .toggle-three-dee,
-		.btr-toggle-items {
+		.btr-toggle-items,
+		html body .btr-thumb-btn-container .btr-thumb-btn {
 			background-color: var(--background-color) !important;
 		}
 
@@ -314,7 +350,8 @@
 		.btn-control-sm:hover,
 		.btn-control-xs:hover,
 		.enable-three-dee:hover,
-		.avatar-thumbnail .toggle-three-dee:hover {
+		.avatar-thumbnail .toggle-three-dee:hover,
+		html body .btr-thumb-btn-container .btr-thumb-btn:hover {
 			color: var(--primary-text-color) !important;
 			border-color: var(--highlighter-color) !important;
 		}
@@ -324,7 +361,8 @@
 		.btn-control-sm:active,
 		.btn-control-xs:active,
 		.enable-three-dee:active,
-		.avatar-thumbnail .toggle-three-dee:active {
+		.avatar-thumbnail .toggle-three-dee:active,
+		html body .btr-thumb-btn-container .btr-thumb-btn:active {
 			color: var(--primary-text-color) !important;
 			border-color: var(--primary-text-color) !important;
 		}
@@ -363,8 +401,6 @@
 			color: var(--secondary-text-color) !important;
 		}
 
-		.game-card-container .game-card-thumb-container,
-		.item-card-container .item-card-thumb-container,
 		.avatar .avatar-card-image,
 		.avatar-container .avatar-card-image,
 		.avatar-container img,
@@ -373,10 +409,25 @@
 			border-color: var(--thumbnail-color) !important;
 		}
 
+		.item-card-container .item-card-thumb-container,
 		.thumbnail-2d-container,
 		.asset-thumb-container {
 			background-color: var(--item-thumbnail-color) !important;
 			border-color: var(--item-thumbnail-color) !important;
+		}
+
+		.item-card-container .item-card-thumb-container {
+			border-color: transparent !important;
+		}
+
+		.badge-list .thumbnail-2d-container,
+		.badge-list span.asset-thumb-container,
+		.badge-list img.asset-thumb-container,
+		.badge-link > .asset-thumb-container,
+		.game-card-container .game-card-thumb-container,
+		.game-card-thumb-container .thumbnail-2d-container {
+			background-color: transparent !important;
+			border-color: isLight ? var(--item-thumbnail-color) : transparent !important;
 		}
 
 		.request-error-page-content .default-error-page,
@@ -390,7 +441,7 @@
 			color: var(--primary-text-color) !important;
 		}
 
-		.btn-primary-md:not(button.game-server-join-btn, .btn-common-play-game-lg, .carousel-controls-left, .carousel-controls-right),
+		.btn-primary-md:not(button.game-server-join-btn, .btn-common-play-game-lg, .btn-growth-md, .carousel-controls-left, .carousel-controls-right),
 		.avatar-card-btns .accept-friend,
 		.btr-profile .btr-games-list .btr-game-playbutton {
 			background-color: var(--primary-text-color) !important;
@@ -450,15 +501,6 @@
 		}
 
 		.items-list .item-card .item-card-menu button:not(:hover) {
-			border-color: transparent !important;
-		}
-
-		.badge-list .thumbnail-2d-container,
-		.badge-list span.asset-thumb-container,
-		.badge-list img.asset-thumb-container,
-		.badge-link > .asset-thumb-container,
-		.game-card-thumb-container .thumbnail-2d-container {
-			background-color: transparent !important;
 			border-color: transparent !important;
 		}
 
@@ -713,6 +755,22 @@
 		}
 	}
 
+	if twitterToX {
+		.profile-about .profile-social-networks .Twitter, .social-links .Twitter {
+			background-image: url("data:image/png;base64,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");
+			background-position: 0;
+		}
+
+		.text-label.account-settings-label[for="twitter"] {
+			visibility: hidden;
+		}
+
+		.text-label.account-settings-label[for="twitter"]::before {
+			content: "X";
+			visibility: visible;
+		}
+	}
+
 	if footerLinks {
 		#rbx-body {
 			margin-bottom: 40px;
@@ -795,6 +853,16 @@
 		.btr-property-value > input {
 			color: #000 !important;
 			padding-left: 4px !important;
+		}
+
+		.btr-explorer-parent, .btr-explorer-parent input {
+			background: none !important;
+			border: none !important;
+		}
+
+		/* Fixes Thumbnail Overlap */
+		.game-main-content .game-calls-to-action {
+			z-index: 6;
 		}
 	}
 
