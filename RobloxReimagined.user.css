@@ -717,6 +717,11 @@
 			padding-bottom: 0px;
 		}
 
+		.game-cards .game-card {
+			margin-top: outlinedAnimation ? 12px : 8px;
+			margin-bottom: 0px;
+		}
+
 		.horizontally-scrollable {
 			transform: outlinedAnimation ? translateY(-14px) : translateY(-2px);
 		}
