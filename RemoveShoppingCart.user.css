@@ -1,0 +1,25 @@
+/* ==UserStyle==
+@name           Remove Roblox Shopping Cart
+@namespace      https://userstyles.world/user/bdidk235
+@version        1.0.0
+@description    Remove the Shopping Cart from the Roblox Catalog
+@author         bdidk235
+@license        MIT
+@preprocessor   stylus
+==/UserStyle== */
+
+@-moz-document domain("www.roblox.com"), domain("web.roblox.com") {
+	.shopping-cart-btn-container,
+	.shopping-cart-add-remove-btn-container,
+	.add-to-cart-btn-container {
+		display: none !important;
+	}
+
+	#item-container .item-context-menu {
+		top: 16px;
+	}
+
+	.item-details-section .item-purchase-btns-container.shopping-cart-buy-button .btn-container .btn-growth-lg {
+		width: 45%;
+	}
+}
