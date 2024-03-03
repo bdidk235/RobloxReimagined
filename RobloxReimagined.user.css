@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Roblox Reimagined
-@version        0.3.1
+@version        0.3.2
 @namespace      https://userstyles.world/user/bdidk235
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
@@ -32,6 +32,7 @@
 		if theme == defaultDark {
 			--background-color: hsl(hue, saturation, 15%);
 			--navigation-color: hsl(hue, saturation, 10%);
+			--header-color: var(--navigation-color);
 			--content-color: hsl(hue, saturation, 23%);
 			--input-color: hsl(hue, saturation, 4%);
 			--input-border-color: hsl(hue, saturation, 18%);
@@ -44,6 +45,7 @@
 		} else if theme == defaultLight {
 			--background-color: hsl(hue, saturation, 95%);
 			--navigation-color: hsl(hue, saturation, 85%);
+			--header-color: var(--navigation-color);
 			--content-color: hsl(hue, saturation, 100%);
 			--input-color: hsl(hue, saturation, 90%);
 			--input-border-color: hsl(hue, saturation, 65%);
@@ -56,6 +58,7 @@
 		} else if theme == darker {
 			--background-color: hsl(hue, saturation, 10%);
 			--navigation-color: hsl(hue, saturation, 6%);
+			--header-color: var(--navigation-color);
 			--content-color: hsl(hue, saturation, 20%);
 			--input-color: hsl(hue, saturation, 4%);
 			--input-border-color: hsl(hue, saturation, 18%);
@@ -68,6 +71,7 @@
 		} else if theme == amoled {
 			--background-color: hsl(hue, saturation, 0%);
 			--navigation-color: hsl(hue, saturation, 2%);
+			--header-color: var(--navigation-color);
 			--content-color: hsl(hue, saturation, 14%);
 			--input-color: hsl(hue, saturation, 2%);
 			--input-border-color: hsl(hue, saturation, 12%);
@@ -80,6 +84,7 @@
 		} else if theme == robloxDark {
 			--background-color: #232527;
 			--navigation-color: #191b1d;
+			--header-color: var(--navigation-color);
 			--content-color: #393b3d;
 			--input-color: rgba(0,0,0,.7);
 			--input-border-color: hsla(0,0%,100%,.2);
@@ -92,6 +97,7 @@
 		} else if theme == robloxLight {
 			--background-color: #f2f4f5;
 			--navigation-color: #dee1e3;
+			--header-color: var(--navigation-color);
 			--content-color: #fff;
 			--input-color: hsla(0,0%,100%,.9);
 			--input-border-color: rgba(57,59,61,.2);
@@ -103,14 +109,19 @@
 			--secondary-text-color: #606162;
 		}
 
-		--text-color: var(--primary-text-color);
-		--secondary-color: var(--secondary-text-color);
+		if theme != off {
+			/*--header-color: hsl(200, 65%, 45%);*/
+
+			--text-color: var(--primary-text-color);
+			--secondary-color: var(--secondary-text-color);
+		}
 	}
 
 	if theme != off {
 		html,
 		.scroller {
 			background-color: var(--background-color) !important;
+			color: var(--primary-text-color) !important
 		}
 
 		body,
@@ -125,19 +136,54 @@
 		.groups-list .group-cards .list-item .group-card .group-card-thumbnail .thumbnail-2d-container,
 		.section-content.remove-panel,
 		.rbx-tab .rbx-tab-heading,
+		.catalog-container .sticky .search-bars,
+		.catalog-container .sticky .topic-container,
 		#profile-current-wearing-avatar .thumbnail-2d-container,
-		#recommendations-container .current-items > .layer {
+		#recommendations-container .current-items > .layer,
+		.notification-stream-list,
+        .new-message .input-block input {
 			background-color: transparent !important;
 		}
 
-		.rbx-header,
 		.rbx-left-col,
 		.layer,
 		.slide-switcher .slide-item-container .slide-item-container-left,
 		.profile-avatar-left, .profile-avatar-left .thumbnail-span,
-		.voting-panel .users-vote .vote-details .vote-container .vote-background, .voting-panel .users-vote .vote-details .vote-container .vote-background.has-votes {
+		.voting-panel .users-vote .vote-details .vote-container .vote-background, .voting-panel .users-vote .vote-details .vote-container .vote-background.has-votes,
+		#navbar-search-input,
+		.chat-search,
+		.chat-main .chat-header,
+		.dialog-header,
+		.chat-windows-header,
+		.create-chat-container .details-header-container,
+		.select-friends-container .details-header-container,
+		.tooltip .tooltip-inner,
+		.notification-stream-header,
+		.payment-method-label-clickable .payment-method-label:hover {
+			background-color: var(--navigation-color) !important;
+		}
+
+		.dialog-message {
 			background-color: var(--navigation-color) !important;
 			border-color: var(--navigation-color) !important;
+		}
+
+		.dialog-message-container.message-inbound .dialog-triangle::after {
+			border-color: transparent var(--navigation-color) transparent transparent !important;
+		}
+
+		.link-card-container.dialog-triangle::after,
+		.link-card-container.dialog-triangle::before,
+		.dialog-message-container.message-cluster-master .dialog-triangle.message-is-sending::after,
+		.dialog-message-container.message-cluster-master .dialog-triangle.message-is-sending::before,
+		.dialog-message-container.message-cluster-master .dialog-triangle::after,
+		.dialog-message-container.message-cluster-master .dialog-triangle::before {
+			border-color: transparent transparent transparent var(--navigation-color) !important;
+		}
+
+		.rbx-header {
+			background-color: var(--header-color) !important;
+			border-color: var(--header-color) !important;
 		}
 
 		.section-content,
@@ -149,17 +195,38 @@
 		.friends-content .avatar-card-content,
 		.slide-switcher .slide-item-container .slide-item-container-right,
 		.profile-avatar-right .profile-avatar-mask,
-		.voting-panel .users-vote .vote-details .vote-container .vote-mask .segment {
+		.voting-panel .users-vote .vote-details .vote-container .vote-mask .segment,
+		.messages .messageDivider,
+		.chat-main,
+		.dialog-container,
+		.dialog-body,
+		.details-container,
+		.details-header-container,
+		.details-btns,
+		.details-btns-fixed,
+		.friends-list-container,
+		.add-friends-option,
+		.sendr-notification-background,
+		.meta-actions-overlay,
+		.payment-method-label-clickable .payment-method-label {
 			background-color: var(--content-color) !important;
+		}
+
+		.highlight-badge .fluid-highlight-text,
+		.subscription-price {
+			color: var(--content-color) !important;
 		}
 
 		.content,
 		.section-content,
+		.light-theme,
+		.dark-theme,
 		.text-link-secondary.active,
 		.text-link-secondary:hover
 		.text-name,
 		.text-name:hover,
 		.text-name:visited,
+		.text-name.text-overflow,
 		.refresh-link,
 		.refresh-link-icon,
 		.see-all-link,
@@ -171,6 +238,7 @@
 		.text-lead,
 		.text-title,
 		.text-link,
+		.font-title,
 		.rbx-header .text-header,
 		.input-group .input-field,
 		.menu-vertical .menu-option.active,
@@ -180,6 +248,9 @@
 		.item-details-info-header,
 		.text-robux,
 		.table,
+		.text-emphasis,
+		.text-sec,
+		.text-warning
 		.voting-panel .users-vote .vote-details .vote-numbers .count-left,
 		.voting-panel .users-vote .vote-details .vote-numbers .count-right,
 		.vlist .list-item .list-body .list-content a,
@@ -193,20 +264,32 @@
 		.slide-switcher .slide-item-container .slide-item-container-right,
 		.see-all-link,
 		.see-all-link-icon,
-		.dropdown-menu li:focus,
-		.dropdown-menu li:hover,
+		.dropdown-menu > a:focus,
+		.dropdown-menu > a:hover,
+		.dropdown-menu > li:focus,
+		.dropdown-menu > li:hover,
 		.rbx-left-col li .text-nav,
 		.rbx-left-col li .text-nav:hover .font-header-2,
 		#settings-popover-menu li:hover a,
-		#buy-robux-popover-menu li:hover a {
+		#buy-robux-popover-menu li:hover a,
+		.paired-name span:first-child,
+		.tooltip .tooltip-inner .name-tooltip-header,
+		.change-alias-modal .text-label,
+		.chat-windows-header,
+		.dialog-message,
+		.btr-switch .btr-switch-flip,
+		.account-username,
+		.meta-actions-list-base .meta-actions-overlay,
+		.payment-method-label-clickable .payment-method-label:hover {
 			color: var(--primary-text-color) !important;
 		}
 
-		.voting-panel .users-vote .vote-details .vote-container .vote-percentage {
+		.voting-panel .users-vote .vote-details .vote-container .vote-percentage,
+		.topic-container .topic-carousel .selected-topic:hover {
 			background-color: var(--primary-text-color) !important;
 		}
 
-		p,
+		p:not(.text-lead, .text-error, .subscription-price, .subscription-cadence),
 		.text,
 		.text-date-hint,
 		.text-default,
@@ -214,6 +297,8 @@
 		.text-footer,
 		.text-info,
 		.text-secondary,
+		.text-muted,
+		.text-subheader
 		.breadcrumb-container,
 		.game-card-info .info-label,
 		.input-group .input-field::placeholder,
@@ -227,17 +312,37 @@
 		.avatar-card-container .avatar-card-caption .avatar-card-label,
 		.rbx-header .navbar-search .navbar-search-option a,
 		.rbx-header .navbar-search .navbar-search-option .new-navbar-search-anchor .navbar-list-option-suffix,
-		.dropdown-menu li,
+		.dropdown-menu > a,
+		.dropdown-menu > li,
 		.content .friends-filter .dropdown button,
 		.rbx-left-col li .text-nav .font-header-2,
 		#settings-popover-menu li a,
-		#buy-robux-popover-menu li a {
+		#buy-robux-popover-menu li a,
+		.messages .messageDivider .message-summary-body .subject,
+		.messages .messageDivider.message-news,
+		.paired-name span:nth-child(2), .paired-name span:nth-child(3),
+		.text-tooltips,
+		.tooltip .tooltip-inner,
+		.chat-search,
+		.dialog-message-container .indicated-message-bubble,
+		.friend-info .friend-status,
+		.modal-dialog .modal-content .modal-body,
+		.payment-method-label-clickable .payment-method-label,
+		.first-time-redemption-disclosure {
 			color: var(--secondary-text-color) !important;
+		}
+
+		.topic-container .topic-carousel .selected-topic {
+			background-color: var(--secondary-text-color) !important;
 		}
 
 		.border {
 			border-color: var(--highlight-color) !important;
 			color: var(--secondary-text-color) !important;
+		}
+
+		.subscription-cadence {
+			color: var(--highlight-color) !important;
 		}
 
 		.social-link .border:hover {
@@ -246,7 +351,8 @@
 		}
 
 		.border-bottom, .border-left, .border-right, .border-top,
-		.modal-dialog .modal-content .modal-header {
+		.modal-dialog .modal-content .modal-header,
+		.premium-container .robux-table .robux-cell{
 			border-color: var(--highlight-color) !important;
 		}
 
@@ -266,9 +372,15 @@
 
 		.rbx-header .navbar-search,
 		.friends-filter .friends-filter-searchbar-container .friends-filter-searchbar-input,
-		.input-field:not(.rbx-select) {
+		.input-field:not(.rbx-select),
+		#code-input {
 			background-color: var(--input-color) !important;
 			color: var(--secondary-text-color) !important;
+		}
+
+		.rbx-header .navbar-search,
+		.friends-filter .friends-filter-searchbar-container .friends-filter-searchbar-input,
+		.input-field:not(.rbx-select, .form-has-feedback.form-has-error .input-field) {
 			border-color: var(--input-border-color) !important;
 		}
 
@@ -282,7 +394,9 @@
 		.dropdown-menu li:hover,
 		.rbx-divider,
 		.dropdown-menu li.active, .dropdown-menu li:active
-		.rbx-header .navbar-search .navbar-search-option.new-selected {
+		.rbx-header .navbar-search .navbar-search-option.new-selected,
+		.topic-container .topic-carousel .unselected-topic:hover,
+		.messages .messageDivider.unread {
 			background-color: var(--highlight-color) !important;
 		}
 
@@ -292,7 +406,9 @@
 			background-color: var(--highlighter-color) !important;
 		}
 
-		input:not([type="range"]), textarea {
+		input:not([type="range"]):not(.form-has-feedback.form-has-error .input-field, .friends-filter-searchbar-input, .new-message .input-block input, .btr-switch input[type="checkbox"], .btr-explorer-parent, .btr-explorer-parent input, .btr-sourceviewer-setting-value input[type="number"]),
+		textarea,
+		.btr-switch {
 			background-color: var(--background-color) !important;
 			color: var(--secondary-text-color) !important;
 			border-color: var(--input-border-color) !important;
@@ -344,7 +460,9 @@
 		.enable-three-dee,
 		.avatar-thumbnail .toggle-three-dee,
 		.btr-toggle-items,
-		html body .btr-thumb-btn-container .btr-thumb-btn {
+		html body .btr-thumb-btn-container .btr-thumb-btn,
+		.notification-stream-body,
+		.notification-stream-loading {
 			background-color: var(--background-color) !important;
 		}
 
@@ -407,7 +525,8 @@
 		.avatar .avatar-card-image,
 		.avatar-container .avatar-card-image,
 		.avatar-container img,
-		.modal-thumb {
+		.modal-thumb,
+		.topic-container .topic-carousel .unselected-topic {
 			background-color: var(--thumbnail-color) !important;
 			border-color: var(--thumbnail-color) !important;
 		}
@@ -430,7 +549,7 @@
 		.game-card-container .game-card-thumb-container,
 		.game-card-thumb-container .thumbnail-2d-container {
 			background-color: transparent !important;
-			border-color: isLight ? var(--item-thumbnail-color) : transparent !important;
+			border-color: (isLight ? var(--item-thumbnail-color) : transparent) !important;
 		}
 
 		.request-error-page-content .default-error-page,
@@ -514,6 +633,18 @@
 			overflow-x: hidden;
 		}
 
+		.tooltip .tooltip-arrow {
+			border-bottom-color: var(--navigation-color) !important;
+		}
+
+		.popover.bottom > .arrow, .popover.bottom > .arrow::after {
+			border-bottom-color: var(--content-color) !important;
+		}
+
+		.chat-main, .dropdown-menu, .notification-content-view {
+			box-shadow: 0 0 8px 0 var(--navigation-color) !important;
+		}
+
 		/* Flatpickr */
 		.flatpickr-calendar {
 			background-color: var(--background-color) !important;
@@ -585,12 +716,21 @@
 		.btn-control-xs,
 		.btn-generic-left-sm,
 		.btn-generic-right-sm,
-		.rbx-tab-heading, .rbx-tabs-horizontal .rbx-tab .rbx-tab-heading,
-		.rbx-header .rbx-navbar li,
+		.rbx-tab,
+		.rbx-header .rbx-navbar,
 		.input-group-btn .input-dropdown-btn,
-		.dropdown-menu li,
-		.btr-game-button {
-			transition: all .2s ease;
+		.dropdown-menu,
+		.btr-game-button
+		.rbx-navbar-icon-group > li,
+		#vertical-menu > li,
+		#vertical-menu .roseal-menu-secondary > li {
+			:not(:hover), [hover="true"] {
+				transition: all 0.1s ease;
+			}
+		}
+
+		[class^="icon"], .popover {
+			transition: none !important;
 		}
 
 		#notification-stream-popover > .arrow {
@@ -713,21 +853,27 @@
 
 		.horizontal-scroll-window {
 			margin-top: -6px;
-			padding-top: outlinedAnimation ? 12px : 8px;
+			padding-top: (outlinedAnimation ? 12px : 8px);
 			padding-bottom: 0px;
 		}
 
 		.game-cards .game-card {
-			margin-top: outlinedAnimation ? 12px : 8px;
+			margin-top: (outlinedAnimation ? 12px : 8px);
 			margin-bottom: 0px;
 		}
 
 		.horizontally-scrollable {
-			transform: outlinedAnimation ? translateY(-14px) : translateY(-2px);
+			transform: (outlinedAnimation ? translateY(-14px) : translateY(-2px));
 		}
 
 		.horizontal-scroller .scroller {
-			height: outlinedAnimation ? 260px : 250px;
+			height: (outlinedAnimation ? 260px : 250px);
+		}
+
+
+		.grid-item-container,
+		.game-card-container {
+			overflow: hidden;
 		}
 
 		.grid-item-container,
@@ -741,7 +887,12 @@
 		.game-card-container:hover {
 			background-color: hsla(hue, saturation, 2%, isLight ? 20% : 40%);
 			transform: scale(104%);
-			box-shadow: outlinedAnimation ? 0px 0px 0px 4px var(--primary-text-color) : 0px 0px 2px 0px transparent;
+			box-shadow: (outlinedAnimation ? 0px 0px 0px 4px var(--primary-text-color) : 0px 0px 2px 0px transparent);
+		}
+
+		.grid-item-container:hover .game-card-thumb-container,
+		.game-card-container:hover .game-card-thumb-container {
+			transform: none;
 		}
 	}
 
@@ -784,11 +935,20 @@
 			margin-left: 4px;
 		}
 
+		.server-player-count-gauge .gauge-inner-bar[style="width: 0%;"] {
+			display: none;
+		}
+
 		/* Profile */
 		.btr-profile .profile-stats-container {
 			border-bottom: none;
 			padding-top: 6px;
 			margin-top: 6px;
+		}
+
+		/* Catalog */
+		.bundle-animation-btn-container {
+			bottom: 80px;
 		}
 
 		/* Navigation Bar */
@@ -800,7 +960,41 @@
 			margin: -6px 0px 0px -2px !important;
 		}
 
+		/* Navigation Tabs */
+		.nav-tabs {
+			display: flex
+		}
+
+		/* Chat */
+		.chat-search .input-field {
+			border-radius: 0 0 8px 8px;
+		}
+
+		.conversation-title-editor-content {
+			padding: 12px 0 18px !important;
+		}
+
+		.conversation-title-container .details-label {
+			padding: 4px 0 0 8px;
+		}
+
+		.conversation-title-container {
+			height: auto;
+		}
+
+		.select-friends-input {
+			padding-left: 2px !important;
+			margin-left: 48px !important;
+			width: 84% !important;
+		}
+
 		/* Misc */
+		.game-card-container .game-card-name,
+		.game-card-container .game-card-info,
+		.game-card-container .game-card-name-secondary {
+			margin-left: 2px !important;
+		}
+
 		.game-card-thumb-container::before {
 			z-index: 1;
 		}
@@ -913,6 +1107,12 @@
 		.btr-explorer-parent, .btr-explorer-parent input {
 			background: none !important;
 			border: none !important;
+			color: #222 !important;
+		}
+
+		.btr-explorer-parent, .btr-explorer-parent input::placeholder,
+		.btr-sourceviewer-setting-value input[type="number"] {
+			color: #888 !important;
 		}
 
 		/* Fixes Thumbnail Overlap */
@@ -931,6 +1131,11 @@
 		.new-badges-list .new-badges-list-container .badge-container.unobtained .badge-image-container {
 			filter: grayscale(0.75);
 			opacity: .25;
+		}
+
+		/* Accounts Manager */
+		.accounts-popover .popover-content {
+			right: -20px !important;
 		}
 	}
 
@@ -952,6 +1157,15 @@
 
 		.badge-image-container > .thumbnail-2d-container {
 			background-color: transparent !important;
+		}
+
+		/* Accounts Manager */
+		.accounts-popover .accounts-manager-header {
+			background-color: var(--navigation-color) !important;
+		}
+
+		.accounts-popover.bottom > .arrow, .accounts-popover.bottom > .arrow::after {
+			border-bottom-color: var(--navigation-color) !important;
 		}
 	}
 }
