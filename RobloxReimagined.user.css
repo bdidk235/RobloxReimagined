@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Roblox Reimagined
-@version        0.3.2
+@version        0.3.3
 @namespace      https://userstyles.world/user/bdidk235
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
@@ -19,7 +19,6 @@
 @var checkbox navFloat "Floating Navigation" 0
 
 @var checkbox improvements "Various Improvements" 1
-@var checkbox twitterToX "Change Twitter to X" 0
 @var checkbox footerLinks "Remove Footer Links" 1
 ==/UserStyle== */
 
@@ -270,6 +269,7 @@
 		.dropdown-menu > li:hover,
 		.rbx-left-col li .text-nav,
 		.rbx-left-col li .text-nav:hover .font-header-2,
+		.rbx-left-col a .rbx-platform-event-header:hover .rbx-event-header-text,
 		#settings-popover-menu li:hover a,
 		#buy-robux-popover-menu li:hover a,
 		.paired-name span:first-child,
@@ -316,6 +316,7 @@
 		.dropdown-menu > li,
 		.content .friends-filter .dropdown button,
 		.rbx-left-col li .text-nav .font-header-2,
+		.rbx-left-col a .rbx-platform-event-header .rbx-event-header-text,
 		#settings-popover-menu li a,
 		#buy-robux-popover-menu li a,
 		.messages .messageDivider .message-summary-body .subject,
@@ -880,14 +881,15 @@
 		.game-card-container {
 			background-color: transparent;
 			box-shadow: 0px 0px 2px 0px transparent;
+			transform: scale(100%);
 			transition: background-color .3s ease, transform .5s ease, box-shadow 0.2s ease;
 		}
 
 		.grid-item-container:hover,
 		.game-card-container:hover {
 			background-color: hsla(hue, saturation, 2%, isLight ? 20% : 40%);
-			transform: scale(104%);
 			box-shadow: (outlinedAnimation ? 0px 0px 0px 4px var(--primary-text-color) : 0px 0px 2px 0px transparent);
+			transform: scale(104%);
 		}
 
 		.grid-item-container:hover .game-card-thumb-container,
@@ -1004,22 +1006,6 @@
 		}
 	}
 
-	if twitterToX {
-		.profile-about .profile-social-networks .Twitter, .social-links .Twitter {
-			background-image: url("data:image/png;base64,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");
-			background-position: 0;
-		}
-
-		.text-label.account-settings-label[for="twitter"] {
-			visibility: hidden;
-		}
-
-		.text-label.account-settings-label[for="twitter"]::before {
-			content: "X";
-			visibility: visible;
-		}
-	}
-
 	if footerLinks {
 		#rbx-body {
 			margin-bottom: 40px;
@@ -1047,7 +1033,7 @@
 		}
 		
 		.btr-universe-box {
-			background-color: var(--highlight-color) !important;
+			background-color: var(--content-color) !important;
 			color: var(--secondary-text-color) !important;
 		}
 
