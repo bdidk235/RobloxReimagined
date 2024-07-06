@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Roblox Reimagined
-@version        0.3.3
+@version        0.4.0
 @namespace      https://userstyles.world/user/bdidk235
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
@@ -18,6 +18,7 @@
 @var select popoutAnimation "Popout Animation" ["off:Off", "basic:Basic", "outlined:Outlined"]
 @var checkbox navFloat "Floating Navigation" 0
 
+@var checkbox featuredVignette "Vignette on Featured Games" 1
 @var checkbox improvements "Various Improvements" 1
 @var checkbox footerLinks "Remove Footer Links" 1
 ==/UserStyle== */
@@ -33,6 +34,7 @@
 			--navigation-color: hsl(hue, saturation, 10%);
 			--header-color: var(--navigation-color);
 			--content-color: hsl(hue, saturation, 23%);
+			--secondary-content-color: hsl(hue, saturation, 12%);
 			--input-color: hsl(hue, saturation, 4%);
 			--input-border-color: hsl(hue, saturation, 18%);
 			--thumbnail-color: hsl(hue, saturation, 30%);
@@ -46,6 +48,7 @@
 			--navigation-color: hsl(hue, saturation, 85%);
 			--header-color: var(--navigation-color);
 			--content-color: hsl(hue, saturation, 100%);
+			--secondary-content-color: hsl(hue, saturation, 90%);
 			--input-color: hsl(hue, saturation, 90%);
 			--input-border-color: hsl(hue, saturation, 65%);
 			--thumbnail-color: hsl(hue, saturation, 85%);
@@ -59,6 +62,7 @@
 			--navigation-color: hsl(hue, saturation, 6%);
 			--header-color: var(--navigation-color);
 			--content-color: hsl(hue, saturation, 20%);
+			--secondary-content-color: hsl(hue, saturation, 13%);
 			--input-color: hsl(hue, saturation, 4%);
 			--input-border-color: hsl(hue, saturation, 18%);
 			--thumbnail-color: hsl(hue, saturation, 17%);
@@ -68,10 +72,11 @@
 			--primary-text-color: hsl(hue, saturation, 100%);
 			--secondary-text-color: hsl(hue, saturation, 75%);
 		} else if theme == amoled {
-			--background-color: hsl(hue, saturation, 0%);
+			--background-color: black;
 			--navigation-color: hsl(hue, saturation, 2%);
 			--header-color: var(--navigation-color);
 			--content-color: hsl(hue, saturation, 14%);
+			--secondary-content-color: hsl(hue, saturation, 6%);
 			--input-color: hsl(hue, saturation, 2%);
 			--input-border-color: hsl(hue, saturation, 12%);
 			--thumbnail-color: hsl(hue, saturation, 12%);
@@ -85,6 +90,7 @@
 			--navigation-color: #191b1d;
 			--header-color: var(--navigation-color);
 			--content-color: #393b3d;
+			--secondary-content-color: #212121;
 			--input-color: rgba(0,0,0,.7);
 			--input-border-color: hsla(0,0%,100%,.2);
 			--thumbnail-color: #d4d4d4;
@@ -98,6 +104,7 @@
 			--navigation-color: #dee1e3;
 			--header-color: var(--navigation-color);
 			--content-color: #fff;
+			--secondary-content-color: #e3e3e3;
 			--input-color: hsla(0,0%,100%,.9);
 			--input-border-color: rgba(57,59,61,.2);
 			--thumbnail-color: #d4d4d4;
@@ -134,10 +141,12 @@
 		.item-details-thumbnail-container .thumbnail-2d-container,
 		.groups-list .group-cards .list-item .group-card .group-card-thumbnail .thumbnail-2d-container,
 		.section-content.remove-panel,
+		.section-content-off,
 		.rbx-tab .rbx-tab-heading,
 		.catalog-container .sticky .search-bars,
 		.catalog-container .sticky .topic-container,
 		#profile-current-wearing-avatar .thumbnail-2d-container,
+		.emotes-radial-thumb > .thumbnail-2d-container,
 		#recommendations-container .current-items > .layer,
 		.notification-stream-list,
         .new-message .input-block input {
@@ -147,8 +156,9 @@
 		.rbx-left-col,
 		.layer,
 		.slide-switcher .slide-item-container .slide-item-container-left,
-		.profile-avatar-left, .profile-avatar-left .thumbnail-span,
-		.voting-panel .users-vote .vote-details .vote-container .vote-background, .voting-panel .users-vote .vote-details .vote-container .vote-background.has-votes,
+		.profile-avatar-left, .section-content.profile-avatar-left, .profile-avatar-left .thumbnail-span,
+		.voting-panel .users-vote .vote-details .vote-container .vote-background,
+		.voting-panel .users-vote .vote-details .vote-container .vote-background.has-votes,
 		#navbar-search-input,
 		.chat-search,
 		.chat-main .chat-header,
@@ -207,7 +217,8 @@
 		.add-friends-option,
 		.sendr-notification-background,
 		.meta-actions-overlay,
-		.payment-method-label-clickable .payment-method-label {
+		.payment-method-label-clickable .payment-method-label
+		#robux-upsell-react-page-wrapper .robux-upsell-container-1 .robux-upsell-item-and-packages-container {
 			background-color: var(--content-color) !important;
 		}
 
@@ -353,7 +364,7 @@
 
 		.border-bottom, .border-left, .border-right, .border-top,
 		.modal-dialog .modal-content .modal-header,
-		.premium-container .robux-table .robux-cell{
+		.premium-container .robux-table .robux-cell {
 			border-color: var(--highlight-color) !important;
 		}
 
@@ -398,7 +409,7 @@
 		.rbx-header .navbar-search .navbar-search-option.new-selected,
 		.topic-container .topic-carousel .unselected-topic:hover,
 		.messages .messageDivider.unread {
-			background-color: var(--highlight-color) !important;
+			background-color: (isLight ? var(--secondary-content-color) : var(--highlight-color)) !important;
 		}
 
 		.player-thumbnails-container .player-avatar.hidden-players-placeholder,
@@ -407,7 +418,15 @@
 			background-color: var(--highlighter-color) !important;
 		}
 
-		input:not([type="range"]):not(.form-has-feedback.form-has-error .input-field, .friends-filter-searchbar-input, .new-message .input-block input, .btr-switch input[type="checkbox"], .btr-explorer-parent, .btr-explorer-parent input, .btr-sourceviewer-setting-value input[type="number"]),
+		input:not([type="range"]):not(
+			.form-has-feedback.form-has-error .input-field,
+			.friends-filter-searchbar-input,
+			.new-message .input-block input,
+			.btr-switch input[type="checkbox"],
+			.btr-explorer-parent,
+			.btr-explorer-parent input,
+			.btr-sourceviewer-setting-value input[type="number"]
+		),
 		textarea,
 		.btr-switch {
 			background-color: var(--background-color) !important;
@@ -493,6 +512,7 @@
 		.btn-secondary-md,
 		.btn-secondary-sm,
 		.btn-secondary-xs {
+			background-color: transparent !important;
 			color: var(--secondary-text-color) !important;
 			border-color: var(--highlighter-color) !important;
 		}
@@ -557,14 +577,20 @@
 		.avatar-card-container,
 		.avatar-card-btns,
 		.modal-dialog .modal-content,
-		.section-content-off,
 		.alert-info,
 		.menu-vertical {
 			background-color: var(--content-color) !important;
 			color: var(--primary-text-color) !important;
 		}
 
-		.btn-primary-md:not(button.game-server-join-btn, .btn-common-play-game-lg, .btn-growth-md, .carousel-controls-left, .carousel-controls-right),
+		.btn-primary-md:not(
+			button.game-server-join-btn,
+			.btn-secondary-md,
+			.btn-common-play-game-lg,
+			.btn-growth-md,
+			.carousel-controls-left,
+			.carousel-controls-right
+		),
 		.avatar-card-btns .accept-friend,
 		.btr-profile .btr-games-list .btr-game-playbutton {
 			background-color: var(--primary-text-color) !important;
@@ -591,8 +617,12 @@
 			box-shadow: inset 0 -2px 0 0 var(--primary-text-color) !important;
 		}
 
-		.tab-horizontal-submenu {
-			border-top: none !important;
+		.chat-main, .dropdown-menu, .notification-content-view {
+			box-shadow: 0 0 8px 0 var(--navigation-color) !important;
+		}
+
+		.people-info-card-container .interaction-container {
+			box-shadow: none !important;
 		}
 
 		.btn-navigation-nav-menu-md:focus,
@@ -606,6 +636,10 @@
 		#btr-navbar-messages > a:focus, #btr-navbar-friends > a:focus,
 		#btr-navbar-messages > a:hover, #btr-navbar-friends > a:hover {
 			background-color: (isLight ? rgba(0, 0, 0, 0.1) : var(--content-color)) !important;
+		}
+
+		.tab-horizontal-submenu {
+			border-top: none !important;
 		}
 
 		.tab-horizontal-submenu li.active, .tab-horizontal-submenu li:hover,
@@ -627,6 +661,10 @@
 			border-color: transparent !important;
 		}
 
+		.store-card {
+			border-color: var(--highlight-color);
+		}
+
 		.clearfix.horizontal-scroll-window {
 			margin-right: -30px;
 			margin-left: -30px;
@@ -640,10 +678,6 @@
 
 		.popover.bottom > .arrow, .popover.bottom > .arrow::after {
 			border-bottom-color: var(--content-color) !important;
-		}
-
-		.chat-main, .dropdown-menu, .notification-content-view {
-			box-shadow: 0 0 8px 0 var(--navigation-color) !important;
 		}
 
 		/* Flatpickr */
@@ -661,11 +695,13 @@
 			border: 1px solid var(--input-border-color) !important;
 		}
 
-		div.flatpickr-calendar .flatpickr-months .flatpickr-next-month svg, div.flatpickr-calendar .flatpickr-months .flatpickr-prev-month svg {
+		div.flatpickr-calendar .flatpickr-months .flatpickr-next-month svg,
+		div.flatpickr-calendar .flatpickr-months .flatpickr-prev-month svg {
 			fill: var(--highlight-color) !important;
 		}
 
-		div.flatpickr-calendar .flatpickr-months .flatpickr-next-month:hover svg, div.flatpickr-calendar .flatpickr-months .flatpickr-prev-month:hover svg {
+		div.flatpickr-calendar .flatpickr-months .flatpickr-next-month:hover svg,
+		div.flatpickr-calendar .flatpickr-months .flatpickr-prev-month:hover svg {
 			fill: var(--primary-text-color) !important;
 		}
 
@@ -699,7 +735,8 @@
 			color: var(--primary-text-color) !important;
 		}
 
-		div.flatpickr-calendar .flatpickr-monthSelect-month.flatpickr-disabled, div.flatpickr-calendar .flatpickr-monthSelect-month.flatpickr-disabled:hover {
+		div.flatpickr-calendar .flatpickr-monthSelect-month.flatpickr-disabled,
+		div.flatpickr-calendar .flatpickr-monthSelect-month.flatpickr-disabled:hover {
 			background-color: transparent !important;
 			color: var(--secondary-text-color) !important;
 			cursor: default;
@@ -732,19 +769,6 @@
 
 		[class^="icon"], .popover {
 			transition: none !important;
-		}
-
-		#notification-stream-popover > .arrow {
-			display: none;
-		}
-
-		#notification-stream-popover.fade {
-			transition: transform .25s ease, opacity .15s linear;
-			transform: translateX(240px) translateY(-20px);
-		}
-
-		#notification-stream-popover.fade.in {
-			transform: translateX(240px) translateY(0px);
 		}
 	}
 
@@ -836,12 +860,12 @@
 		.game-card-container:not(.group-card-name-container),
 		.list-item.item-card,
 		.list-item.member,
-		.list-item:has(div[avatar-item-card],.friend) {
+		.list-item:has(div[avatar-item-card], .friend) {
 			animation: slideInUp .5s;
 		}
 
 		#navigation {
-			animation: navbarSlideIn .5s;
+			animation: slideInLeft .5s;
 		}
 	}
 
@@ -849,7 +873,7 @@
 		outlinedAnimation = (popoutAnimation == outlined)
 
 		.game-carousel {
-			overflow: visible;
+			overflow: visible !important;
 		}
 
 		.horizontal-scroll-window {
@@ -871,25 +895,30 @@
 			height: (outlinedAnimation ? 260px : 250px);
 		}
 
+		.wide-game-tile-metadata {
+			margin-bottom: 6px !important;
+		}
 
-		.grid-item-container,
+		.item-card-container,
 		.game-card-container {
 			overflow: hidden;
 		}
 
-		.grid-item-container,
+		.item-card-container,
 		.game-card-container {
-			background-color: transparent;
-			box-shadow: 0px 0px 2px 0px transparent;
-			transform: scale(100%);
-			transition: background-color .3s ease, transform .5s ease, box-shadow 0.2s ease;
+			background-color: transparent !important;
+			box-shadow: 0px 0px 2px 0px transparent !important;
+			transform: scale(100%) !important;
+			transition: background-color .3s ease, transform .5s ease, box-shadow 0.2s ease !important;
+			border-radius: 8px !important;
+			height: auto !important;
 		}
 
-		.grid-item-container:hover,
+		.item-card-container:hover,
 		.game-card-container:hover {
-			background-color: hsla(hue, saturation, 2%, isLight ? 20% : 40%);
-			box-shadow: (outlinedAnimation ? 0px 0px 0px 4px var(--primary-text-color) : 0px 0px 2px 0px transparent);
-			transform: scale(104%);
+			background-color: hsla(hue, saturation, 2%, isLight ? 20% : 40%) !important;
+			box-shadow: (outlinedAnimation ? 0px 0px 0px 4px var(--primary-text-color) : 0px 0px 2px 0px transparent) !important;
+			transform: scale(104%) !important;
 		}
 
 		.grid-item-container:hover .game-card-thumb-container,
@@ -898,6 +927,40 @@
 		}
 	}
 
+	if featuredVignette {
+		.featured-game-icon-container::before,
+		.game-card-thumb-container::before {
+			border-radius: 8px !important;
+			position: absolute !important;
+			content: "" !important;
+			top: 0 !important;
+			right: 0 !important;
+			bottom: 0 !important;
+			left: 0 !important;
+			background: radial-gradient(transparent,rgba(0,0,0,.4)) !important;
+			transition: opacity .3s linear !important;
+			opacity: 0 !important;
+			z-index: 5 !important;
+		}
+
+		.featured-game-container:hover .featured-game-icon-container::before,
+		.game-card-container:hover .game-card-thumb-container::before {
+			opacity: 1 !important;
+		}
+	}
+
+	if popoutAnimation != off || featuredVignette {
+		.hover-game-tile.grid-tile {
+			width: auto !important;
+			margin: 0px !important;
+			padding: 0px !important;
+		}
+
+		.hover-game-tile, .featured-game-container {
+			background-color: transparent !important;
+		}
+	}
+	
 	if navFloat {
 		#navigation {
 			height: fit-content;
@@ -923,6 +986,10 @@
 			margin-bottom: 0px;
 		}
 
+		.game-description-footer:has(.text-report:not([data-display-none]), .text-pastname) {
+			padding-bottom: 12px !important;
+		}
+
 		.game-stats-container {
 			margin-bottom: -10px;
 			border-bottom: none;
@@ -941,16 +1008,28 @@
 			display: none;
 		}
 
+		.rbx-private-game-server-details .section-header .link-menu {
+			top: 16px !important;
+			right: 16px !important;
+		}
+
+		/* Home Page */
+		.game-card-contants {
+			display: none;
+		}
+
+		.hover-game-tile.grid-tile {
+			border-radius: 0 !important;
+		}
+
 		/* Profile */
-		.btr-profile .profile-stats-container {
-			border-bottom: none;
-			padding-top: 6px;
-			margin-top: 6px;
+		.touch .profile-accountrements-page-container {
+			display: block;
 		}
 
 		/* Catalog */
 		.bundle-animation-btn-container {
-			bottom: 80px;
+			top: 370px;
 		}
 
 		/* Navigation Bar */
@@ -1027,6 +1106,16 @@
 
 	/* BTR Recolor */
 	if theme != off {
+		/* BTR Settings */
+		.btr-settings {
+			background-color: var(--background-color) !important;
+			color: var(--primary-text-color) !important;
+		}
+
+		.btr-settings-header {
+			background-color: var(--navigation-color) !important;
+		}
+
 		/* Experience */
 		.btr-toggle-description {
 			background-color: transparent !important;
@@ -1038,12 +1127,15 @@
 		}
 
 		/* Profile */
-		.btr-profile .btr-games-list .btr-game-desc .btr-toggle-description {
-			background-color: var(--content-color) !important;
-		}
-
 		.btr-profile .profile-stats-container {
 			border-top: 1px solid var(--highlight-color);
+			border-bottom: none;
+			padding-top: 6px;
+			margin-top: 6px;
+		}
+
+		.btr-profile .btr-games-list .btr-game-desc .btr-toggle-description {
+			background-color: var(--content-color) !important;
 		}
 
 		.container-buttons .profile-view-selector {
@@ -1127,12 +1219,22 @@
 
 	/* RoSeal Recolor */
 	if theme != off {
-		/* Group */
-		.menu-vertical .menu-option:hover {
+		/* Menus */
+		.roseal-menu-secondary-container {
+			background-color: var(--secondary-content-color) !important
+		}
+
+		.menu-option .menu-option-content, .menu-vertical .menu-option {
+			color: var(--secondary-text-color) !important;
+		}
+
+		.menu-option .menu-option-content:hover, .menu-vertical .menu-option:hover {
+			color: var(--primary-text-color) !important;
 			box-shadow: inset 4px 0 0 0 var(--highlight-color) !important;
 		}
 
-		.menu-vertical .menu-option.active {
+		.menu-option .menu-option-content.active, .menu-vertical .menu-option.active {
+			color: var(--primary-text-color) !important;
 			box-shadow: inset 4px 0 0 0 var(--primary-text-color) !important;
 		}
 
