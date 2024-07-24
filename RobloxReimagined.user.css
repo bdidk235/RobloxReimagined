@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Roblox Reimagined
-@version        0.4.0
+@version        0.4.1
 @namespace      https://userstyles.world/user/bdidk235
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
@@ -36,7 +36,7 @@
 			--content-color: hsl(hue, saturation, 23%);
 			--secondary-content-color: hsl(hue, saturation, 12%);
 			--input-color: hsl(hue, saturation, 4%);
-			--input-border-color: hsl(hue, saturation, 18%);
+			--input-border-color: hsl(hue, saturation, 21%);
 			--thumbnail-color: hsl(hue, saturation, 30%);
 			--item-thumbnail-color: var(--thumbnail-color);
 			--highlight-color: hsl(hue, saturation, 45%);
@@ -53,8 +53,8 @@
 			--input-border-color: hsl(hue, saturation, 65%);
 			--thumbnail-color: hsl(hue, saturation, 85%);
 			--item-thumbnail-color: var(--thumbnail-color);
-			--highlight-color: hsl(hue, saturation, 85%);
-			--highlighter-color: hsl(hue, saturation, 70%);
+			--highlight-color: hsl(hue, saturation, 75%);
+			--highlighter-color: hsl(hue, saturation, 80%);
 			--primary-text-color: hsl(hue, saturation, 15%);
 			--secondary-text-color: hsl(hue, saturation, 38%);
 		} else if theme == darker {
@@ -78,11 +78,11 @@
 			--content-color: hsl(hue, saturation, 14%);
 			--secondary-content-color: hsl(hue, saturation, 6%);
 			--input-color: hsl(hue, saturation, 2%);
-			--input-border-color: hsl(hue, saturation, 12%);
+			--input-border-color: hsl(hue, saturation, 17%);
 			--thumbnail-color: hsl(hue, saturation, 12%);
 			--item-thumbnail-color: var(--thumbnail-color);
-			--highlight-color: hsl(hue, saturation, 20%);
-			--highlighter-color: hsl(hue, saturation, 28%);
+			--highlight-color: hsl(hue, saturation, 25%);
+			--highlighter-color: hsl(hue, saturation, 34%);
 			--primary-text-color: hsl(hue, saturation, 100%);
 			--secondary-text-color: hsl(hue, saturation, 65%);
 		} else if theme == robloxDark {
@@ -149,7 +149,7 @@
 		.emotes-radial-thumb > .thumbnail-2d-container,
 		#recommendations-container .current-items > .layer,
 		.notification-stream-list,
-        .new-message .input-block input {
+		.new-message .input-block input {
 			background-color: transparent !important;
 		}
 
@@ -168,9 +168,14 @@
 		.select-friends-container .details-header-container,
 		.tooltip .tooltip-inner,
 		.notification-stream-header,
-		.payment-method-label-clickable .payment-method-label:hover {
+		.payment-method-label-clickable .payment-method-label:hover
+		.group-open {
 			background-color: var(--navigation-color) !important;
 		}
+
+		button .notification-red {
+			border-color: var(--navigation-color) !important;
+		}	
 
 		.dialog-message {
 			background-color: var(--navigation-color) !important;
@@ -181,13 +186,12 @@
 			border-color: transparent var(--navigation-color) transparent transparent !important;
 		}
 
-		.link-card-container.dialog-triangle::after,
-		.link-card-container.dialog-triangle::before,
-		.dialog-message-container.message-cluster-master .dialog-triangle.message-is-sending::after,
-		.dialog-message-container.message-cluster-master .dialog-triangle.message-is-sending::before,
-		.dialog-message-container.message-cluster-master .dialog-triangle::after,
-		.dialog-message-container.message-cluster-master .dialog-triangle::before {
-			border-color: transparent transparent transparent var(--navigation-color) !important;
+		.link-card-container.dialog-triangle,
+		.dialog-message-container.message-cluster-master .dialog-triangle.message-is-sending,
+		.dialog-message-container.message-cluster-master .dialog-triangle {
+			&::before, &::after {
+				border-color: transparent transparent transparent var(--navigation-color) !important;
+			}
 		}
 
 		.rbx-header {
@@ -215,6 +219,8 @@
 		.details-btns-fixed,
 		.friends-list-container,
 		.add-friends-option,
+		.chat-main-empty .chat-disconnect,
+		#chat-empty-list,
 		.sendr-notification-background,
 		.meta-actions-overlay,
 		.payment-method-label-clickable .payment-method-label
@@ -259,6 +265,7 @@
 		.text-robux,
 		.table,
 		.text-emphasis,
+		.text.text-emphasis,
 		.text-sec,
 		.text-warning
 		.voting-panel .users-vote .vote-details .vote-numbers .count-left,
@@ -288,7 +295,6 @@
 		.change-alias-modal .text-label,
 		.chat-windows-header,
 		.dialog-message,
-		.btr-switch .btr-switch-flip,
 		.account-username,
 		.meta-actions-list-base .meta-actions-overlay,
 		.payment-method-label-clickable .payment-method-label:hover {
@@ -385,26 +391,24 @@
 		.rbx-header .navbar-search,
 		.friends-filter .friends-filter-searchbar-container .friends-filter-searchbar-input,
 		.input-field:not(.rbx-select),
-		#code-input {
+		#code-input,
+		.dialog-container .dialog-input-container,
+		.dialog-container .dialog-input-container .dialog-input {
 			background-color: var(--input-color) !important;
 			color: var(--secondary-text-color) !important;
-		}
-
-		.rbx-header .navbar-search,
-		.friends-filter .friends-filter-searchbar-container .friends-filter-searchbar-input,
-		.input-field:not(.rbx-select, .form-has-feedback.form-has-error .input-field) {
 			border-color: var(--input-border-color) !important;
-		}
-
-		.rbx-header .navbar-search::placeholder,
-		.friends-filter .friends-filter-searchbar-container .friends-filter-searchbar-input::placeholder,
-		.input-field:not(.rbx-select)::placeholder {
-			color: var(--secondary-text-color) !important;
+			&:focus {
+				border-color: var(--highlight-color) !important;
+			}
+			&::placeholder {
+				color: var(--secondary-text-color) !important;
+			}
 		}
 
 		.dropdown-menu li:focus,
 		.dropdown-menu li:hover,
 		.rbx-divider,
+		.group-divider,
 		.dropdown-menu li.active, .dropdown-menu li:active
 		.rbx-header .navbar-search .navbar-search-option.new-selected,
 		.topic-container .topic-carousel .unselected-topic:hover,
@@ -418,24 +422,12 @@
 			background-color: var(--highlighter-color) !important;
 		}
 
-		input:not([type="range"]):not(
-			.form-has-feedback.form-has-error .input-field,
-			.friends-filter-searchbar-input,
-			.new-message .input-block input,
-			.btr-switch input[type="checkbox"],
-			.btr-explorer-parent,
-			.btr-explorer-parent input,
-			.btr-sourceviewer-setting-value input[type="number"]
-		),
-		textarea,
-		.btr-switch {
-			background-color: var(--background-color) !important;
+		input, textarea {
 			color: var(--secondary-text-color) !important;
 			border-color: var(--input-border-color) !important;
-		}
-
-		input::placeholder, textarea::placeholder {
-			color: var(--secondary-text-color) !important;
+			&::placeholder {
+				color: var(--secondary-text-color) !important;
+			}
 		}
 
 		.input-group-btn .input-dropdown-btn,
@@ -465,47 +457,34 @@
 			background-color: (isLight ? var(--content-color) : var(--primary-text-color)) !important;
 		}
 
+		.enable-three-dee,
+		.avatar-thumbnail .toggle-three-dee,
+		.btr-toggle-items,
+		html body .btr-thumb-btn-container .btr-thumb-btn,
+		.notification-stream-body,
+		.notification-stream-loading,
+		.btr-pager-holder input.btr-pager-cur,
+		#rbx-current-page input {
+			background-color: var(--background-color) !important;
+		}
+
 		.btn-control-lg,
 		.btn-control-md,
 		.btn-control-sm,
 		.btn-control-xs,
 		.enable-three-dee,
 		.avatar-thumbnail .toggle-three-dee,
-		.btr-toggle-items,
 		html body .btr-thumb-btn-container .btr-thumb-btn {
 			color: var(--secondary-text-color) !important;
 			border-color: var(--highlight-color) !important;
-		}
-
-		.enable-three-dee,
-		.avatar-thumbnail .toggle-three-dee,
-		.btr-toggle-items,
-		html body .btr-thumb-btn-container .btr-thumb-btn,
-		.notification-stream-body,
-		.notification-stream-loading {
-			background-color: var(--background-color) !important;
-		}
-
-		.btn-control-lg:hover,
-		.btn-control-md:hover,
-		.btn-control-sm:hover,
-		.btn-control-xs:hover,
-		.enable-three-dee:hover,
-		.avatar-thumbnail .toggle-three-dee:hover,
-		html body .btr-thumb-btn-container .btr-thumb-btn:hover {
-			color: var(--primary-text-color) !important;
-			border-color: var(--highlighter-color) !important;
-		}
-
-		.btn-control-lg:active,
-		.btn-control-md:active,
-		.btn-control-sm:active,
-		.btn-control-xs:active,
-		.enable-three-dee:active,
-		.avatar-thumbnail .toggle-three-dee:active,
-		html body .btr-thumb-btn-container .btr-thumb-btn:active {
-			color: var(--primary-text-color) !important;
-			border-color: var(--primary-text-color) !important;
+			&:hover {
+				color: var(--primary-text-color) !important;
+				border-color: var(--highlighter-color) !important;
+			}
+			&:active {
+				color: var(--primary-text-color) !important;
+				border-color: var(--primary-text-color) !important;
+			}
 		}
 
 		.btn-secondary-lg,
@@ -515,22 +494,14 @@
 			background-color: transparent !important;
 			color: var(--secondary-text-color) !important;
 			border-color: var(--highlighter-color) !important;
-		}
-
-		.btn-secondary-lg:hover,
-		.btn-secondary-md:hover,
-		.btn-secondary-sm:hover,
-		.btn-secondary-xs:hover {
-			color: var(--primary-text-color) !important;
-			border-color: var(--highlighter-color) !important;
-		}
-
-		.btn-secondary-lg:active,
-		.btn-secondary-md:active,
-		.btn-secondary-sm:active,
-		.btn-secondary-xs:active {
-			color: var(--primary-text-color) !important;
-			border-color: var(--primary-text-color) !important;
+			&:hover {
+				color: var(--primary-text-color) !important;
+ 				border-color: var(--highlighter-color) !important;
+ 			}
+ 			&:active {
+ 				color: var(--primary-text-color) !important;
+ 				border-color: var(--primary-text-color) !important;
+ 			}
 		}
 
 		.see-all-link, .see-all-link-icon, .rbx-refresh {
@@ -585,12 +556,14 @@
 
 		.btn-primary-md:not(
 			button.game-server-join-btn,
+			.play-button,
 			.btn-secondary-md,
 			.btn-common-play-game-lg,
 			.btn-growth-md,
 			.carousel-controls-left,
 			.carousel-controls-right
 		),
+		.btn-primary-xs,
 		.avatar-card-btns .accept-friend,
 		.btr-profile .btr-games-list .btr-game-playbutton {
 			background-color: var(--primary-text-color) !important;
@@ -611,10 +584,9 @@
 		.rbx-header .rbx-navbar li {
 			padding-bottom: 1.25px;
 			border-bottom: none !important;
-		}
-
-		.rbx-header .rbx-navbar li:hover {
-			box-shadow: inset 0 -2px 0 0 var(--primary-text-color) !important;
+			&:hover {
+				box-shadow: inset 0 -2px 0 0 var(--primary-text-color) !important;
+			}
 		}
 
 		.chat-main, .dropdown-menu, .notification-content-view {
@@ -625,17 +597,14 @@
 			box-shadow: none !important;
 		}
 
-		.btn-navigation-nav-menu-md:focus,
-		.btn-navigation-nav-menu-md:hover,
-		.btn-navigation-nav-robux-md:focus,
-		.btn-navigation-nav-robux-md:hover,
-		.btn-navigation-nav-settings-md:focus,
-		.btn-navigation-nav-settings-md:hover,
-		.btn-uiblox-common-common-notification-bell-md:focus,
-		.btn-uiblox-common-common-notification-bell-md:hover,
-		#btr-navbar-messages > a:focus, #btr-navbar-friends > a:focus,
-		#btr-navbar-messages > a:hover, #btr-navbar-friends > a:hover {
-			background-color: (isLight ? rgba(0, 0, 0, 0.1) : var(--content-color)) !important;
+		.btn-navigation-nav-menu-md,
+		.btn-navigation-nav-robux-md,
+		.btn-navigation-nav-settings-md,
+		.btn-uiblox-common-common-notification-bell-md,
+		#btr-navbar-messages > a, #btr-navbar-friends > a, {
+			&:hover, &:focus {
+				background-color: (isLight ? rgba(0, 0, 0, 0.1) : var(--content-color)) !important;
+			}
 		}
 
 		.tab-horizontal-submenu {
@@ -644,17 +613,15 @@
 
 		.tab-horizontal-submenu li.active, .tab-horizontal-submenu li:hover,
 		.scroller:not(.disabled):hover,
-		.age-rating-details,
-		.carousel-controls-left, .carousel-controls-right {
+		.age-rating-details {
 			background-color: (isLight ? rgba(0, 0, 0, 0.15) : rgba(0, 0, 0, 0.75)) !important;
 		}
 
 		.carousel-controls-left, .carousel-controls-right {
 			background-color: (isLight ? rgba(0, 0, 0, 0.15) : rgba(0, 0, 0, 0.65)) !important;
-		}
-
-		.carousel-controls-left:hover, .carousel-controls-right:hover {
-			background-color: (isLight ? rgba(0, 0, 0, 0.25) : rgba(0, 0, 0, 0.85)) !important;
+			&:hover {
+				background-color: (isLight ? rgba(0, 0, 0, 0.25) : rgba(0, 0, 0, 0.85)) !important;
+			}
 		}
 
 		.items-list .item-card .item-card-menu button:not(:hover) {
@@ -680,6 +647,20 @@
 			border-bottom-color: var(--content-color) !important;
 		}
 
+		.reaction-button {
+			background-color: var(--secondary-content-color) !important;
+			&.interactable {
+				background-color: var(--highlight-color) !important;
+			}
+		}
+
+		/* Notifications */
+		.notification-stream-container .notification-content-view .notification-stream-body {
+			&, & > * {
+				background-color: var(--background-color) !important;
+			}
+		}
+
 		/* Flatpickr */
 		.flatpickr-calendar {
 			background-color: var(--background-color) !important;
@@ -691,55 +672,49 @@
 			border: 1px solid var(--input-border-color) !important;
 		}
 
-		.numInputWrapper span {
+		.flatpickr-current-month .numInputWrapper span {
 			border: 1px solid var(--input-border-color) !important;
+			&.arrowUp, &.arrowDown {
+				&::after {
+					border-top-color: var(--secondary-text-color) !important;
+					border-bottom-color: var(--secondary-text-color) !important;
+				}
+				&:hover::after {
+					border-top-color: var(--primary-text-color) !important;
+					border-bottom-color: var(--primary-text-color) !important;
+				}
+			}
 		}
 
-		div.flatpickr-calendar .flatpickr-months .flatpickr-next-month svg,
-		div.flatpickr-calendar .flatpickr-months .flatpickr-prev-month svg {
-			fill: var(--highlight-color) !important;
-		}
-
-		div.flatpickr-calendar .flatpickr-months .flatpickr-next-month:hover svg,
-		div.flatpickr-calendar .flatpickr-months .flatpickr-prev-month:hover svg {
-			fill: var(--primary-text-color) !important;
-		}
-
-		.flatpickr-current-month .numInputWrapper span.arrowUp::after,
-		.flatpickr-current-month .numInputWrapper span.arrowDown::after {
-			border-top-color: var(--secondary-text-color) !important;
-			border-bottom-color: var(--secondary-text-color) !important;
-		}
-
-		.flatpickr-current-month .numInputWrapper span.arrowUp:hover::after,
-		.flatpickr-current-month .numInputWrapper span.arrowDown:hover::after {
-			border-top-color: var(--primary-text-color) !important;
-			border-bottom-color: var(--primary-text-color) !important;
-		}
-
-		div.flatpickr-calendar .flatpickr-monthSelect-month:focus,
-		div.flatpickr-calendar .flatpickr-monthSelect-month:hover {
-			background-color: var(--highlight-color) !important;
-		}
-
-		div.flatpickr-calendar .flatpickr-monthSelect-month.selected {
-			background-color: var(--highlight-color) !important;
-		}
-
-		div.flatpickr-calendar .flatpickr-monthSelect-month.selected:focus,
-		div.flatpickr-calendar .flatpickr-monthSelect-month.selected:hover {
-			background-color: var(--highlighter-color) !important;
+		div.flatpickr-calendar .flatpickr-months .flatpickr-next-month,
+		div.flatpickr-calendar .flatpickr-months .flatpickr-prev-month {
+			svg {
+				fill: var(--highlight-color) !important;
+			}
+			&:hover svg {
+				fill: var(--primary-text-color) !important;
+			}
 		}
 
 		div.flatpickr-calendar .flatpickr-monthSelect-month {
 			color: var(--primary-text-color) !important;
+			&:focus, &:hover {
+				background-color: var(--highlight-color) !important;
+			}
+			&.selected {
+				background-color: var(--highlight-color) !important;
+				&:focus, &:hover {
+					background-color: var(--highlighter-color) !important;
+				}
+			}
 		}
 
-		div.flatpickr-calendar .flatpickr-monthSelect-month.flatpickr-disabled,
-		div.flatpickr-calendar .flatpickr-monthSelect-month.flatpickr-disabled:hover {
-			background-color: transparent !important;
-			color: var(--secondary-text-color) !important;
-			cursor: default;
+		div.flatpickr-calendar .flatpickr-monthSelect-month.flatpickr-disabled {
+			&, &:hover {
+				background-color: transparent !important;
+				color: var(--secondary-text-color) !important;
+				cursor: default;
+			}
 		}
 	}
 
@@ -762,7 +737,7 @@
 		.rbx-navbar-icon-group > li,
 		#vertical-menu > li,
 		#vertical-menu .roseal-menu-secondary > li {
-			:not(:hover), [hover="true"] {
+			&:not(:hover), &[hover="true"] {
 				transition: all 0.1s ease;
 			}
 		}
@@ -872,6 +847,25 @@
 	if popoutAnimation != off {
 		outlinedAnimation = (popoutAnimation == outlined)
 
+		.item-card-container,
+		.game-card-container {
+			background-color: transparent !important;
+			box-shadow: 0px 0px 2px 0px transparent !important;
+			transform: scale(100%) !important;
+			transition: background-color .3s ease, transform .5s ease, box-shadow 0.2s ease !important;
+			border-radius: 8px !important;
+			height: auto !important;
+			overflow: hidden;
+			&:hover {
+				background-color: hsla(hue, saturation, 2%, isLight ? 20% : 40%) !important;
+				box-shadow: (outlinedAnimation ? 0px 0px 0px 4px var(--primary-text-color) : 0px 0px 2px 0px transparent) !important;
+				transform: scale(104%) !important;
+			}
+			&:hover .game-card-thumb-container {
+				transform: none;
+			}
+		}
+
 		.game-carousel {
 			overflow: visible !important;
 		}
@@ -899,31 +893,12 @@
 			margin-bottom: 6px !important;
 		}
 
-		.item-card-container,
-		.game-card-container {
-			overflow: hidden;
+		.play-button-container {
+			margin-right: 4px;
 		}
 
-		.item-card-container,
-		.game-card-container {
-			background-color: transparent !important;
-			box-shadow: 0px 0px 2px 0px transparent !important;
-			transform: scale(100%) !important;
-			transition: background-color .3s ease, transform .5s ease, box-shadow 0.2s ease !important;
-			border-radius: 8px !important;
-			height: auto !important;
-		}
-
-		.item-card-container:hover,
-		.game-card-container:hover {
-			background-color: hsla(hue, saturation, 2%, isLight ? 20% : 40%) !important;
-			box-shadow: (outlinedAnimation ? 0px 0px 0px 4px var(--primary-text-color) : 0px 0px 2px 0px transparent) !important;
-			transform: scale(104%) !important;
-		}
-
-		.grid-item-container:hover .game-card-thumb-container,
-		.game-card-container:hover .game-card-thumb-container {
-			transform: none;
+		.play-button-container .shimmer {
+			display: none !important;
 		}
 	}
 
@@ -950,7 +925,7 @@
 	}
 
 	if popoutAnimation != off || featuredVignette {
-		.hover-game-tile.grid-tile {
+		.hover-game-tile {
 			width: auto !important;
 			margin: 0px !important;
 			padding: 0px !important;
@@ -1048,7 +1023,13 @@
 
 		/* Chat */
 		.chat-search .input-field {
-			border-radius: 0 0 8px 8px;
+			border-radius: 0 0 8px 8px !important;
+		}
+
+		.dialog-container .dialog-input-container,
+		.dialog-container .dialog-input-container .dialog-input {
+			border: none !important;
+			border-radius: 8px 8px 0 0 !important;
 		}
 
 		.conversation-title-editor-content {
@@ -1151,10 +1132,9 @@
 				background-color: var(--highlight-color) !important;
 				border-color: var(--highlight-color) !important;
 			}
-		}
-
-		.btr-profile .btr-games-list .btr-game-button:hover {
-			box-shadow: 0 1px 4px var(--highlighter-color) !important;
+			&:hover {
+				box-shadow: 0 1px 4px var(--highlighter-color) !important;
+			}
 		}
 
 		/* Catalog */
@@ -1163,17 +1143,46 @@
 			box-shadow: 0 1px 1px 0 var(--highlighter-color) !important;
 		}
 
+		.btr-switch {
+			background-color: var(--background-color) !important;
+			color: var(--secondary-text-color) !important;
+			border-color: var(--navigation-color) !important;
+		}
+
+		.btr-switch .btr-switch-flip {
+			color: var(--primary-text-color) !important;
+		}
+
 		.btr-switch input[type="checkbox"] {
 			background: none !important;
 			border: none !important;
 		}
 
-		.btr-owner-item::before, .btr-owner-item::after {
-			border-color: var(--highlight-color) !important;
+		.btr-owner-item {
+			&::before, &::after {
+				border-color: var(--highlight-color) !important;
+			}
+		}
+
+
+		.btr-preview-container {
+			background-color: var(--content-color) !important;
+		}
+
+		html body .btr-bundle-animations .btr-bundle-btn {
+			&, & .btr-bundle-alt-container div {
+				background-color: var(--background-color) !important;
+			}
+		}
+
+		.btr-thumb-btn-container .btr-thumb-popup {
+			--popup-bg: var(--content-color) !important;
 		}
 
 		/* BTR Explorer */
-		.btr-explorer-item-name, .btr-property-name, .btr-property-value {
+		.btr-explorer-item-name,
+		.btr-property-name,
+		.btr-property-value {
 			color: #000 !important;
 		}
 
@@ -1226,16 +1235,14 @@
 
 		.menu-option .menu-option-content, .menu-vertical .menu-option {
 			color: var(--secondary-text-color) !important;
-		}
-
-		.menu-option .menu-option-content:hover, .menu-vertical .menu-option:hover {
-			color: var(--primary-text-color) !important;
-			box-shadow: inset 4px 0 0 0 var(--highlight-color) !important;
-		}
-
-		.menu-option .menu-option-content.active, .menu-vertical .menu-option.active {
-			color: var(--primary-text-color) !important;
-			box-shadow: inset 4px 0 0 0 var(--primary-text-color) !important;
+			&:hover {
+				color: var(--primary-text-color) !important;
+				box-shadow: inset 4px 0 0 0 var(--highlight-color) !important;
+			}
+			&.active {
+				color: var(--primary-text-color) !important;
+				box-shadow: inset 4px 0 0 0 var(--primary-text-color) !important;
+			}
 		}
 
 		/* Badges List */
