@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Roblox Reimagined
-@version        0.4.1
+@version        0.4.2
 @namespace      https://userstyles.world/user/bdidk235
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
@@ -224,7 +224,9 @@
 		.sendr-notification-background,
 		.meta-actions-overlay,
 		.payment-method-label-clickable .payment-method-label
-		#robux-upsell-react-page-wrapper .robux-upsell-container-1 .robux-upsell-item-and-packages-container {
+		#robux-upsell-react-page-wrapper .robux-upsell-container-1 .robux-upsell-item-and-packages-container,
+		.friend-tile-dropdown,
+		.menu-option .menu-secondary {
 			background-color: var(--content-color) !important;
 		}
 
@@ -323,6 +325,7 @@
 		.footer .text-footer-nav,
 		.footer .text-footer-nav.privacy,
 		.text-label,
+		.section-content-off
 		.container-empty,
 		.text-robux-tile,
 		.select-group .select-option,
@@ -346,7 +349,8 @@
 		.friend-info .friend-status,
 		.modal-dialog .modal-content .modal-body,
 		.payment-method-label-clickable .payment-method-label,
-		.first-time-redemption-disclosure {
+		.first-time-redemption-disclosure,
+		.menu-option .menu-secondary-option {
 			color: var(--secondary-text-color) !important;
 		}
 
@@ -409,29 +413,20 @@
 		.dropdown-menu li:hover,
 		.rbx-divider,
 		.group-divider,
-		.dropdown-menu li.active, .dropdown-menu li:active
+		.dropdown-menu li.active, .dropdown-menu li:active,
 		.rbx-header .navbar-search .navbar-search-option.new-selected,
 		.topic-container .topic-carousel .unselected-topic:hover,
-		.messages .messageDivider.unread {
+		.messages .messageDivider.unread,
+		.friend-tile-dropdown-button:hover,
+		.menu-option .menu-secondary-option:hover,
+		.menu-option .menu-secondary-option:focus,
+		.menu-option .menu-secondary-option:active,
+		.menu-option .menu-secondary-option.active {
 			background-color: (isLight ? var(--secondary-content-color) : var(--highlight-color)) !important;
 		}
 
-		.player-thumbnails-container .player-avatar.hidden-players-placeholder,
-		.dropdown-menu li.active:hover,
-		.rbx-header .navbar-search .navbar-search-option.new-selected:hover {
-			background-color: var(--highlighter-color) !important;
-		}
-
-		input, textarea {
-			color: var(--secondary-text-color) !important;
-			border-color: var(--input-border-color) !important;
-			&::placeholder {
-				color: var(--secondary-text-color) !important;
-			}
-		}
-
 		.input-group-btn .input-dropdown-btn,
-		.content .friends-filter .dropdown button {
+		.content .friends-filter .dropdown .input-dropdown-btn {
 			background-color: transparent !important;
 			color: var(--secondary-text-color) !important;
 			border-color: var(--secondary-text-color) !important;
@@ -443,7 +438,6 @@
 		.content .friends-filter .dropdown:hover .input-dropdown-btn,
 		.content .friends-filter .dropdown:focus .input-dropdown-btn,
 		.content .friends-filter .dropdown.open .input-dropdown-btn {
-			background-color: transparent !important;
 			color: var(--primary-text-color) !important;
 			border-color: var(--primary-text-color) !important;
 		}
@@ -461,10 +455,10 @@
 		.avatar-thumbnail .toggle-three-dee,
 		.btr-toggle-items,
 		html body .btr-thumb-btn-container .btr-thumb-btn,
-		.notification-stream-body,
-		.notification-stream-loading,
+		#rbx-current-page input,
 		.btr-pager-holder input.btr-pager-cur,
-		#rbx-current-page input {
+		.notification-stream-body,
+		.notification-stream-loading {
 			background-color: var(--background-color) !important;
 		}
 
@@ -474,7 +468,9 @@
 		.btn-control-xs,
 		.enable-three-dee,
 		.avatar-thumbnail .toggle-three-dee,
-		html body .btr-thumb-btn-container .btr-thumb-btn {
+		html body .btr-thumb-btn-container .btr-thumb-btn,
+		#rbx-current-page input,
+		.btr-pager-holder input.btr-pager-cur {
 			color: var(--secondary-text-color) !important;
 			border-color: var(--highlight-color) !important;
 			&:hover {
