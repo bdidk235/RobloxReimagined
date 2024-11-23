@@ -1,11 +1,11 @@
 /* ==UserStyle==
-@name           Roblox Reimagined
-@version        0.4.2
+@name           Roblox Style Tweaks
+@version        0.5.0
 @namespace      https://userstyles.world/user/bdidk235
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
-@homepageURL    https://github.com/bdidk235/RobloxReimagined
-@supportURL     https://github.com/bdidk235/RobloxReimagined/issues
+@homepageURL    https://github.com/bdidk235/RobloxStyleTweaks
+@supportURL     https://github.com/bdidk235/RobloxStyleTweaks/issues
 @license        MIT
 @preprocessor   stylus
 
@@ -957,12 +957,12 @@
 			margin-bottom: 0px;
 		}
 
-		.game-description-footer:has(.text-report:not([data-display-none]), .text-pastname) {
+		.game-description-footer:has(.text-report:not([data-display-none])) {
+			margin-top: 4px !important;
 			padding-bottom: 12px !important;
 		}
 
-		.game-stats-container {
-			margin-bottom: -10px;
+		.game-stat-container {
 			border-bottom: none;
 		}
 
